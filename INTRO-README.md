@@ -9,7 +9,7 @@
 - GitHub Pages에 반영하려면 검토용 브랜치의 변경을 배포 브랜치로 병합하세요.
 
 ## 동작
-- 데스크톱 첫 방문: 약 2.5초간 OP.GG 워드마크가 Y축으로 한 바퀴 회전한 뒤 상단 로고 위치로 이동합니다.
+- 데스크톱 첫 방문: 약 3.8초간 15개 로고 조각이 입체적으로 회전하며 나선형으로 모입니다. 금빛 입자가 퍼지고 산타 모자가 내려앉은 뒤 상단 로고 위치로 이동합니다.
 - 현재 페이지에서 사용하던 텍스트 워드마크를 CSS 레이어로 입체화했습니다. 공식 로고 SVG 자산을 새로 사용한 것은 아닙니다.
 - 같은 탭의 같은 세션: sessionStorage 플래그로 인트로를 생략하고 0.4초 페이드로 진입합니다.
 - 모바일(900px 이하): 복잡한 회전/좌표 이동 대신 확대와 페이드만 사용합니다.
@@ -21,14 +21,16 @@
 - 저장소 접근이 차단된 환경에서는 세션 생략을 보장할 수 없지만 페이지 진입은 정상 동작합니다.
 - 파일을 직접 열어도 실행됩니다. 실제 세션 동작 검수에는 동일 주소의 HTTP 개발 서버/배포 환경을 권장합니다.
 
+눈발·금빛 입자·궤도·조각 모션은 동일한 시간값으로 계산합니다. 모바일에서는 눈발 수를 줄이고 확대·페이드를 사용합니다.
+
 ## 수정 위치
 - CSS: OP.GG INTRO: appearance 주석
 - HTML: OP.GG INTRO: standalone overlay 주석
 - JavaScript: OP.GG INTRO controller 주석
-- 전체 길이: CONFIG.duration = 2500 (밀리초)
-- 회전 종료: CONFIG.turnEnd = .64
-- 로고 이동 시작: CONFIG.dockStart = .68
-- 세션 키: opgg:first-christmas:intro:v1
+- 전체 길이: CONFIG.duration = 3800 (밀리초)
+- 회전 종료: CONFIG.turnEnd = .56
+- 로고 이동 시작: CONFIG.dockStart = .79
+- 세션 키: opgg:first-christmas:intro:christmas-v2
 - 로고 도착점: #intro-destination
 - 배경색: .intro-backdrop
 - 메인 이동 문구: #intro-title
