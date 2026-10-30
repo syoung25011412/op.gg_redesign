@@ -10,7 +10,7 @@
 /* Fail open: without JavaScript the page stays visible; a broken controller
    cannot leave a permanent overlay. This timer is a watchdog, not a motion cue. */
 (() => {
-  const key = 'opgg:first-christmas:intro:v1';
+  const key = 'opgg:first-christmas:intro:christmas-v2';
   let seen = false;
   try { seen = sessionStorage.getItem(key) === 'seen'; } catch (_) {}
   const deepLink = location.hash && location.hash !== '#welcome';
@@ -111,6 +111,54 @@ html.opgg-return main{animation:opgg-return .4s ease-out both}
 }
 /* ===== END INTRO appearance ===== */
 
+
+/* ===== CHRISTMAS INTRO v2: snow, ornaments, assembled wordmark ===== */
+.intro-backdrop{background:radial-gradient(ellipse at 50% 42%,#164757 0%,#092535 38%,#040f20 78%)}
+.intro-grid{display:none}
+.intro-halo{width:min(78vw,760px);border-color:#b5e8dc20;box-shadow:0 0 160px #4fbfaf12,inset 0 0 140px #76d0bf08}
+.intro-halo:before{border-color:#e3c88a26}
+.intro-halo:after{border-color:#d0ecff15}
+.intro-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.intro-mobile-trim{display:none;position:absolute;inset:0 0 auto;width:100%;height:150px;pointer-events:none}
+.intro-garland{position:absolute;inset:0 0 auto;width:100%;height:220px;pointer-events:none}
+.intro-kicker{top:36px;left:40px;color:#f3d8a1;z-index:2}
+.intro-skip{top:25px;border-color:#e4c99155;background:#0b2532cc;color:#f5e7c9}
+.intro-skip:hover{background:#1c403f}
+.intro-wordmark{font-size:clamp(76px,15vw,216px)}
+.intro-core{position:relative;transform-style:preserve-3d}
+.intro-face{color:#f5fafc;text-shadow:0 2px 0 #b9d4dc,0 0 36px #a0e1e52b}
+.intro-depth{color:#598494}
+.intro-shards{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.intro-shard{position:absolute;inset:0;display:block;color:#f5fafc;text-shadow:2px 3px 0 #4d8794,-1px -1px 0 #fff8;will-change:transform,opacity}
+.intro-shard:nth-child(3n){color:#e1f5ff}
+.intro-shard:nth-child(4n){text-shadow:2px 3px 0 #bc9d60,-1px -1px 0 #fff8}
+.intro-hat{position:absolute;left:-3%;top:-30%;width:25%;height:auto;transform:rotate(-13deg);filter:drop-shadow(0 8px 10px #020c1c66);transform-origin:60% 100%;pointer-events:none}
+.intro-caption{top:calc(46% + clamp(76px,11vw,158px))}
+.intro-caption p{font-size:18px;letter-spacing:-.025em;color:#f2e6c9;font-weight:600}
+.intro-caption small{color:#93bdc4;font-size:10px;letter-spacing:.28em}
+.intro-caption .intro-season{font-size:11px;letter-spacing:.3em;color:#e2bf77;margin-bottom:16px}
+.intro-bottom{width:min(320px,calc(100vw - 48px))}
+.intro-meta{color:#a8c7cc;letter-spacing:.1em}
+.intro-track{background:#e6cc9125}
+.intro-track span{background:linear-gradient(90deg,#7fb7bc,#ffe2a0);box-shadow:0 0 10px #ffe2a099}
+.intro-ready{color:#89adb6}
+.intro-floor{position:absolute;inset:auto -10% -120px;height:210px;border-radius:50% 50% 0 0;background:radial-gradient(ellipse at 50% 100%,#d8f4f52b,transparent 72%);pointer-events:none}
+@media(max-width:900px){
+  .intro-garland{display:none}
+  .intro-mobile-trim{display:block}
+  .intro-kicker{top:33px;left:22px;font-size:8px;letter-spacing:.1em}
+  .intro-wordmark{font-size:clamp(76px,17vw,150px)}
+  .intro-caption p{font-size:16px}
+  .intro-caption .intro-season{font-size:9px}
+  .intro-shards{display:none}
+  .intro-hat{top:-34%;width:27%}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-shards{display:none}
+  .intro-shard{will-change:auto}
+}
+/* ===== END CHRISTMAS INTRO v2 ===== */
+
 </style>
 </head>
 <body>
@@ -118,27 +166,46 @@ html.opgg-return main{animation:opgg-return .4s ease-out both}
 <!-- ===== OP.GG INTRO: standalone overlay, no video/CDN dependencies ===== -->
 <div class="intro" id="opgg-intro" role="dialog" aria-modal="true" aria-labelledby="intro-title" aria-describedby="intro-description">
   <div class="intro-backdrop" aria-hidden="true"></div>
-  <div class="intro-grid" aria-hidden="true"></div>
+  <svg class="intro-garland" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+<defs>
+ <linearGradient id="bauble-red" x2=".8" y2="1"><stop stop-color="#f38676"/><stop offset=".4" stop-color="#c33f47"/><stop offset="1" stop-color="#641c30"/></linearGradient>
+ <linearGradient id="bauble-gold" x2=".8" y2="1"><stop stop-color="#fff1bf"/><stop offset=".4" stop-color="#d2ad60"/><stop offset="1" stop-color="#795938"/></linearGradient>
+ <g id="pine-branch" fill="none" stroke-linecap="round"><path d="M0 0L125 5" stroke="#294d42" stroke-width="3"/>
+ <path d="M10 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/><path d="M20 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#326151" stroke-width="2"/><path d="M30 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/><path d="M40 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#326151" stroke-width="2"/><path d="M50 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/><path d="M60 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#326151" stroke-width="2"/><path d="M70 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/><path d="M80 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#326151" stroke-width="2"/><path d="M90 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/><path d="M100 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#326151" stroke-width="2"/><path d="M110 4l-22 -26m22 26l-16 24m16 -24l-9 -33" stroke="#234e47" stroke-width="2"/></g>
+ <g id="gold-star"><path d="M0 -10L2 -2 10 0 2 2 0 10 -2 2 -10 0 -2 -2Z" fill="#f4d79e"/></g>
+</defs>
+<path d="M60 30Q360 210 720 62Q1080 210 1380 30" fill="none" stroke="#d7bf752a"/>
+<path d="M0 0Q210 100 380 0M1060 0Q1230 100 1440 0" fill="none" stroke="#234c40" stroke-width="15"/>
+<use href="#pine-branch" transform="translate(-24 8) rotate(-10)"/><use href="#pine-branch" transform="translate(1464 8) scale(-1 1) rotate(-10)"/><use href="#pine-branch" transform="translate(61 11) rotate(-4)"/><use href="#pine-branch" transform="translate(1379 11) scale(-1 1) rotate(-4)"/><use href="#pine-branch" transform="translate(146 14) rotate(2)"/><use href="#pine-branch" transform="translate(1294 14) scale(-1 1) rotate(2)"/><use href="#pine-branch" transform="translate(231 17) rotate(8)"/><use href="#pine-branch" transform="translate(1209 17) scale(-1 1) rotate(8)"/><use href="#pine-branch" transform="translate(316 20) rotate(14)"/><use href="#pine-branch" transform="translate(1124 20) scale(-1 1) rotate(14)"/>
+<path d="M188 24V116" stroke="#d2b87566"/><rect x="184" y="112" width="8" height="6" rx="1" fill="#e5c583"/><circle cx="188" cy="136" r="20" fill="url(#bauble-red)"/><ellipse cx="182" cy="129" rx="5" ry="3" fill="#fff5" transform="rotate(-35 188 136)"/><path d="M334 24V76" stroke="#d2b87566"/><rect x="330" y="72" width="8" height="6" rx="1" fill="#e5c583"/><circle cx="334" cy="88" r="12" fill="url(#bauble-gold)"/><ellipse cx="330.4" cy="83.8" rx="3" ry="1.7999999999999998" fill="#fff5" transform="rotate(-35 334 88)"/><path d="M1250 24V106" stroke="#d2b87566"/><rect x="1246" y="102" width="8" height="6" rx="1" fill="#e5c583"/><circle cx="1250" cy="128" r="22" fill="url(#bauble-red)"/><ellipse cx="1243.4" cy="120.3" rx="5.5" ry="3.3" fill="#fff5" transform="rotate(-35 1250 128)"/><path d="M1108 24V71" stroke="#d2b87566"/><rect x="1104" y="67" width="8" height="6" rx="1" fill="#e5c583"/><circle cx="1108" cy="84" r="13" fill="url(#bauble-gold)"/><ellipse cx="1104.1" cy="79.45" rx="3.25" ry="1.95" fill="#fff5" transform="rotate(-35 1108 84)"/>
+<use href="#gold-star" transform="translate(430 105) scale(.5)"/><use href="#gold-star" transform="translate(590 105) scale(.5)"/><use href="#gold-star" transform="translate(720 68) scale(.5)"/><use href="#gold-star" transform="translate(850 105) scale(.5)"/><use href="#gold-star" transform="translate(1010 105) scale(.5)"/>
+</svg>
+  <svg class="intro-mobile-trim" viewBox="0 0 390 150" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><use href="#pine-branch" transform="translate(-20 0) rotate(8) scale(.9)"/><use href="#pine-branch" transform="translate(410 0) scale(-.9 .9) rotate(8)"/><path d="M20 15Q195 120 370 15" fill="none" stroke="#d7bf7544"/><path d="M30 5V104M353 5V83" stroke="#d7bf7566"/><circle cx="30" cy="116" r="12" fill="#c94752"/><rect x="27" y="102" width="6" height="4" rx="1" fill="#e4c98d"/><circle cx="353" cy="94" r="10" fill="#e4c27f"/><use href="#gold-star" transform="translate(194 68) scale(.5)"/></svg>
+  <canvas class="intro-canvas" aria-hidden="true"></canvas>
+  <div class="intro-floor" aria-hidden="true"></div>
   <div class="intro-halo" aria-hidden="true"></div>
   <div class="intro-kicker">FIRST CHRISTMAS, FIRST PLAY</div>
   <button class="intro-skip" type="button">건너뛰기 ↗</button>
   <div class="intro-position" aria-hidden="true">
-    <div class="intro-wordmark brand-mark">
-      <span class="intro-depth" style="--layer:10">OP.GG</span>
-      <span class="intro-depth" style="--layer:9">OP.GG</span>
-      <span class="intro-depth" style="--layer:8">OP.GG</span>
-      <span class="intro-depth" style="--layer:7">OP.GG</span>
-      <span class="intro-depth" style="--layer:6">OP.GG</span>
-      <span class="intro-depth" style="--layer:5">OP.GG</span>
-      <span class="intro-depth" style="--layer:4">OP.GG</span>
-      <span class="intro-depth" style="--layer:3">OP.GG</span>
-      <span class="intro-depth" style="--layer:2">OP.GG</span>
-      <span class="intro-depth" style="--layer:1">OP.GG</span>
-      <span class="intro-face">OP.GG</span>
-    </div>
+    <div class="intro-wordmark brand-mark"><div class="intro-core"><span class="intro-depth" style="--layer:10">OP.GG</span><span class="intro-depth" style="--layer:9">OP.GG</span><span class="intro-depth" style="--layer:8">OP.GG</span><span class="intro-depth" style="--layer:7">OP.GG</span><span class="intro-depth" style="--layer:6">OP.GG</span><span class="intro-depth" style="--layer:5">OP.GG</span><span class="intro-depth" style="--layer:4">OP.GG</span><span class="intro-depth" style="--layer:3">OP.GG</span><span class="intro-depth" style="--layer:2">OP.GG</span><span class="intro-depth" style="--layer:1">OP.GG</span><span class="intro-face">OP.GG</span></div><div class="intro-shards"><span class="intro-shard" style="clip-path:polygon(0% 0%,20% 0%,20% 33.333333333333336%,0% 33.333333333333336%);transform-origin:10% 16.666666666666668%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(20% 0%,40% 0%,40% 33.333333333333336%,20% 33.333333333333336%);transform-origin:30% 16.666666666666668%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(40% 0%,60% 0%,60% 33.333333333333336%,40% 33.333333333333336%);transform-origin:50% 16.666666666666668%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(60% 0%,80% 0%,80% 33.333333333333336%,60% 33.333333333333336%);transform-origin:70% 16.666666666666668%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(80% 0%,100% 0%,100% 33.333333333333336%,80% 33.333333333333336%);transform-origin:90% 16.666666666666668%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(0% 33.333333333333336%,20% 33.333333333333336%,20% 66.66666666666667%,0% 66.66666666666667%);transform-origin:10% 50%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(20% 33.333333333333336%,40% 33.333333333333336%,40% 66.66666666666667%,20% 66.66666666666667%);transform-origin:30% 50%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(40% 33.333333333333336%,60% 33.333333333333336%,60% 66.66666666666667%,40% 66.66666666666667%);transform-origin:50% 50%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(60% 33.333333333333336%,80% 33.333333333333336%,80% 66.66666666666667%,60% 66.66666666666667%);transform-origin:70% 50%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(80% 33.333333333333336%,100% 33.333333333333336%,100% 66.66666666666667%,80% 66.66666666666667%);transform-origin:90% 50%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(0% 66.66666666666667%,20% 66.66666666666667%,20% 100%,0% 100%);transform-origin:10% 83.33333333333334%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(20% 66.66666666666667%,40% 66.66666666666667%,40% 100%,20% 100%);transform-origin:30% 83.33333333333334%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(40% 66.66666666666667%,60% 66.66666666666667%,60% 100%,40% 100%);transform-origin:50% 83.33333333333334%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(60% 66.66666666666667%,80% 66.66666666666667%,80% 100%,60% 100%);transform-origin:70% 83.33333333333334%">OP.GG</span>
+<span class="intro-shard" style="clip-path:polygon(80% 66.66666666666667%,100% 66.66666666666667%,100% 100%,80% 100%);transform-origin:90% 83.33333333333334%">OP.GG</span></div><svg class="intro-hat" viewBox="0 0 180 140" aria-hidden="true"><defs><linearGradient id="santa-red" x2="1" y2="1"><stop stop-color="#ef746b"/><stop offset=".45" stop-color="#cb3e49"/><stop offset="1" stop-color="#83213b"/></linearGradient></defs><path d="M24 111C33 78 44 22 87 17C122 12 133 48 151 61L133 77C119 61 104 46 97 47C106 69 120 85 128 111Z" fill="url(#santa-red)"/><path d="M43 94C51 57 58 36 76 29" fill="none" stroke="#ffad8b66" stroke-width="5" stroke-linecap="round"/><path d="M24 107Q78 94 129 108Q142 112 138 123Q136 134 122 130Q76 121 27 132Q10 135 10 122Q10 110 24 107Z" fill="#eff8f7"/><path d="M20 124Q80 112 129 122" fill="none" stroke="#c1d8de" stroke-width="4" stroke-linecap="round"/><circle cx="149" cy="75" r="17" fill="#f6fbf5"/><circle cx="145" cy="70" r="8" fill="#fff"/></svg></div>
   </div>
   <div class="intro-caption">
-    <p id="intro-title">이번 겨울, 나의 첫 플레이</p>
+    <div class="intro-season">A LITTLE CHRISTMAS MAGIC</div>
+    <p id="intro-title">첫 플레이의 설렘이 모이는 순간.</p>
     <small id="intro-description">YOUR FIRST PLAY STARTS HERE</small>
   </div>
   <div class="intro-bottom">
@@ -320,8 +387,8 @@ $$('[data-answer]').forEach(button => button.onclick = () => {
    Change CONFIG.duration to adjust the full animation, in milliseconds. */
 (() => {
   'use strict';
-  const CONFIG = { duration: 2500, turnEnd: .64, dockStart: .68, dockEnd: 1 };
-  const boot = window.__opggIntro || { key: 'opgg:first-christmas:intro:v1', show: false };
+  const CONFIG = { duration: 3800, turnEnd: .56, dockStart: .79, dockEnd: 1 };
+  const boot = window.__opggIntro || { key: 'opgg:first-christmas:intro:christmas-v2', show: false };
   const root = document.documentElement;
   const overlay = document.getElementById('opgg-intro');
   const position = overlay.querySelector('.intro-position');
@@ -329,7 +396,7 @@ $$('[data-answer]').forEach(button => button.onclick = () => {
   const face = overlay.querySelector('.intro-face');
   const depths = overlay.querySelectorAll('.intro-depth');
   const backdrop = overlay.querySelector('.intro-backdrop');
-  const ornament = [...overlay.querySelectorAll('.intro-grid,.intro-halo,.intro-caption,.intro-kicker,.intro-bottom')];
+  const ornament = [...overlay.querySelectorAll('.intro-garland,.intro-mobile-trim,.intro-floor,.intro-halo,.intro-caption,.intro-kicker,.intro-bottom')];
   const skip = overlay.querySelector('.intro-skip');
   const bar = overlay.querySelector('.intro-track');
   const fill = bar.firstElementChild;
@@ -345,6 +412,79 @@ $$('[data-answer]').forEach(button => button.onclick = () => {
   const clamp = x => Math.max(0, Math.min(1, x));
   const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
   const phase = (p,a,b) => clamp((p-a)/(b-a));
+
+  const core = overlay.querySelector('.intro-core');
+  const pieces = [...overlay.querySelectorAll('.intro-shard')];
+  const pieceLayer = overlay.querySelector('.intro-shards');
+  const hat = overlay.querySelector('.intro-hat');
+  const canvas = overlay.querySelector('.intro-canvas');
+  const ctx = canvas.getContext('2d');
+  let cw = 0, ch = 0, dpr = 1;
+  const seed = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+  const snow = Array.from({length:100},(_,i)=>({x:seed(i+1),y:seed(i+201),r:.6+seed(i+401)*2.2,s:15+seed(i+501)*28}));
+  function resizeCanvas() {
+    cw = innerWidth; ch = innerHeight; dpr = Math.min(devicePixelRatio || 1,1.5);
+    canvas.width = Math.round(cw*dpr); canvas.height = Math.round(ch*dpr);
+    if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function spark(x,y,r,alpha,color,cross=false) {
+    if(!ctx || alpha<=0) return;
+    ctx.globalAlpha = clamp(alpha); ctx.fillStyle=color;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    if(cross) { ctx.strokeStyle=color; ctx.lineWidth=.7; ctx.beginPath(); ctx.moveTo(x-r*4,y);ctx.lineTo(x+r*4,y);ctx.moveTo(x,y-r*4);ctx.lineTo(x,y+r*4);ctx.stroke(); }
+  }
+  function drawMagic(p,staticFrame=false) {
+    if(!ctx) return;
+    if(cw!==innerWidth || ch!==innerHeight) resizeCanvas();
+    ctx.clearRect(0,0,cw,ch);
+    const t=staticFrame?0:p*CONFIG.duration/1000;
+    const fade=1-smooth(phase(p,.79,1));
+    const mobile=compact.matches;
+    const cx=cw*.5,cy=ch*.46, radius=Math.min(cw*.35,450);
+    // Gentle snowfall; deterministic positions prevent jumps on replay.
+    snow.slice(0,mobile?45:100).forEach((s,i)=>{
+      const x=(s.x*cw+Math.sin(t*.45+i)*16+cw)%cw;
+      const y=(s.y*ch+t*s.s)%(ch+20)-10;
+      spark(x,y,s.r,fade*(.22+seed(i+70)*.4),'#d9f1f4',i%17===0);
+    });
+    if(!staticFrame && !mobile) {
+      // Gold particles spiral inward while the wordmark shards assemble.
+      const gather=smooth(phase(p,.04,.54));
+      for(let i=0;i<95;i++) {
+        const a=i*2.39996+t*1.9;
+        const r=radius*(.25+seed(i+800)*.9)*(1-gather);
+        const x=cx+Math.cos(a)*r*1.45;
+        const y=cy+Math.sin(a)*r*.62;
+        const strength=Math.sin(Math.PI*clamp(phase(p,.015,.57)));
+        spark(x,y,.65+seed(i+900)*1.2,fade*strength*(.3+seed(i+950)*.7),'#ffe0a0',i%13===0);
+      }
+      // One soft burst at assembly, never a repeated flash.
+      const burst=phase(p,.52,.76);
+      if(burst>0 && burst<1) {
+        for(let i=0;i<65;i++){
+          const a=i*2.39996;
+          const r=(25+Math.pow(burst,.65)*(130+seed(i+1100)*230));
+          spark(cx+Math.cos(a)*r*1.7,cy+Math.sin(a)*r*.64,1+seed(i+1300),Math.pow(1-burst,1.6)*.8,'#ffe4ab',i%8===0);
+        }
+        ctx.globalAlpha=Math.sin(Math.PI*burst)*.22;
+        ctx.strokeStyle='#f8d99c';ctx.lineWidth=1;
+        ctx.beginPath();ctx.ellipse(cx,cy,radius*(.7+burst*.75),radius*(.23+burst*.28),-.12,0,Math.PI*2);ctx.stroke();
+      }
+      // Two curved comet trails wrap around the completed logo.
+      const orbitOpacity=Math.sin(Math.PI*phase(p,.36,.79))*fade;
+      for(let j=0;j<2;j++) for(let i=0;i<42;i++){
+        const a=t*2.6+j*Math.PI-i*.025;
+        spark(cx+Math.cos(a)*radius*.9,cy+Math.sin(a)*radius*.28,1.1,(1-i/42)*orbitOpacity*.7,j?'#bbf3ed':'#ffdaa0',i===0);
+      }
+    }
+    ctx.globalAlpha=1;
+  }
+  function assembledStatic() {
+    core.style.opacity='1';pieceLayer.style.opacity='0';hat.style.opacity='1';
+    hat.style.transform='rotate(-13deg)';
+    resizeCanvas();drawMagic(0,true);
+  }
+
   function ready() {
     status.textContent = hero.complete
       ? (hero.naturalWidth ? '준비됐어요. 곧 시작해요.' : '배너 없이도 체험할 수 있어요.')
@@ -375,36 +515,54 @@ $$('[data-answer]').forEach(button => button.onclick = () => {
       focusTarget.focus({ preventScroll: true });
     }
   }
+
   function render(now) {
     if (!active || reduced.matches) return;
     if (!started) started = now;
     const p = clamp((now - started) / CONFIG.duration);
     const mobile = compact.matches;
     const dock = smooth(phase(p, CONFIG.dockStart, CONFIG.dockEnd));
-    const rotation = 360 * smooth(phase(p, 0, CONFIG.turnEnd));
-    const entry = smooth(phase(p, 0, .12));
-    // Read the actual destination each frame: resize and late layout shifts stay aligned.
+    const entry = smooth(phase(p,0,.09));
     const rect = destination.getBoundingClientRect();
     const cx = innerWidth / 2, cy = innerHeight * .46;
-    const visibleTarget = rect.top >= 0 && rect.bottom <= innerHeight;
-    const connect = !mobile && visibleTarget;
-    const dx = connect ? (rect.left + rect.width/2 - cx) * dock : 0;
-    const dy = connect ? (rect.top + rect.height/2 - cy) * dock : 0;
-    const scale = connect ? 1 + (rect.width / wordmark.offsetWidth - 1) * dock : .9 + .1 * entry;
-    position.style.transform = 'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
-    wordmark.style.transform = mobile ? 'none' : 'rotateX(' + (-12 * Math.sin(Math.PI * phase(p,0,CONFIG.turnEnd))) + 'deg) rotateY(' + rotation + 'deg)';
-    position.style.opacity = connect ? entry : entry * (1 - dock);
-    backdrop.style.opacity = 1 - dock;
-    ornament.forEach(el => el.style.opacity = 1 - dock);
-    depths.forEach(el => el.style.opacity = 1 - dock);
-    face.style.textShadow = dock > .95 ? 'none' : '';
-    const n = Math.floor(p * 100);
-    if (n !== lastProgress) {
-      lastProgress = n; percent.textContent = n + '%'; bar.setAttribute('aria-valuenow', String(n));
-    }
-    fill.style.transform = 'scaleX(' + p + ')';
-    if (p >= 1) finish();
-    else frame = requestAnimationFrame(render);
+    const connect = !mobile && rect.top>=0 && rect.bottom<=innerHeight;
+    const dx = connect ? (rect.left+rect.width/2-cx)*dock : 0;
+    const dy = connect ? (rect.top+rect.height/2-cy)*dock : 0;
+    const scale = connect ? 1+(rect.width/wordmark.offsetWidth-1)*dock : .88+.12*entry;
+    position.style.transform='translate(-50%,-50%) translate('+dx+'px,'+dy+'px) scale('+scale+')';
+    const turn = smooth(phase(p,.02,.54));
+    wordmark.style.transform=mobile?'none':'rotateX('+(-12*Math.sin(turn*Math.PI))+'deg) rotateY('+(-360*(1-turn))+'deg)';
+    position.style.opacity=connect?entry:entry*(1-dock);
+    const reveal=smooth(phase(p,.51,.55));
+    core.style.opacity=mobile?1:reveal;
+    pieceLayer.style.opacity=mobile?0:1-reveal;
+    const extent=Math.min(innerWidth*.42,580);
+    if(!mobile && reveal<1) pieces.forEach((el,i)=>{
+      const delay=(i%5)*.012+Math.floor(i/5)*.013;
+      const u=phase(p,.035+delay,.46+delay);
+      const ease=1-Math.pow(1-u,3);
+      const a=i*2.39996+(1-ease)*1.8;
+      const dist=extent*(.65+seed(i+30)*.55)*(1-ease);
+      const x=Math.cos(a)*dist;
+      const y=Math.sin(a)*dist*.66;
+      const z=(180+seed(i+50)*260)*(1-ease);
+      const rot=(seed(i+60)-.5)*540*(1-ease);
+      const bounce=Math.sin(u*Math.PI)*.06;
+      el.style.transform='translate3d('+x+'px,'+y+'px,'+z+'px) rotateZ('+rot+'deg) rotateY('+rot*.45+'deg) scale('+(1+bounce)+')';
+      el.style.opacity=smooth(phase(p,.01+delay,.08+delay));
+    });
+    const hatIn=mobile?entry:smooth(phase(p,.53,.65));
+    hat.style.opacity=hatIn*(1-dock);
+    hat.style.transform='translateY('+(-38*(1-hatIn))+'px) rotate('+(-13-25*(1-hatIn))+'deg) scale('+(.75+.25*hatIn)+')';
+    backdrop.style.opacity=1-dock;
+    ornament.forEach(el=>el.style.opacity=1-dock);
+    depths.forEach(el=>el.style.opacity=1-dock);
+    face.style.textShadow=dock>.95?'none':'';
+    drawMagic(p);
+    const n=Math.floor(p*100);
+    if(n!==lastProgress){lastProgress=n;percent.textContent=n+'%';bar.setAttribute('aria-valuenow',String(n));}
+    fill.style.transform='scaleX('+p+')';
+    if(p>=1)finish();else frame=requestAnimationFrame(render);
   }
   function start() {
     if (active) return;
@@ -423,6 +581,8 @@ $$('[data-answer]').forEach(button => button.onclick = () => {
     bar.hidden = reduced.matches;
     overlay.querySelector('#intro-description').textContent = reduced.matches
       ? '움직임 없이 바로 시작할 수 있어요.' : 'YOUR FIRST PLAY STARTS HERE';
+    assembledStatic();
+    if (!reduced.matches && !compact.matches) { core.style.opacity='0';pieceLayer.style.opacity='1';hat.style.opacity='0';position.style.opacity='0'; }
     skip.focus({ preventScroll: true });
     if (!reduced.matches) {
       frame = requestAnimationFrame(render);
