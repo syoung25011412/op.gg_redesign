@@ -525,6 +525,72 @@
     });
   });
 
+  /* ============================================================
+     인트로 — OP.GG 로고 + 문구 띠
+     표시 여부는 <head> 의 인라인 스크립트가 미리 정합니다.
+     (탭당 1회 / 해시로 바로 들어온 경우 제외 / 동작 줄이기면 제외)
+     ============================================================ */
+  (function intro() {
+    const cfg = window.__intro;
+    const box = $('#intro-overlay');
+    if (!box || !cfg || !cfg.show) return;
+
+    const AUTO_MS = 2900;          /* 자동으로 사라지기까지 */
+    const OUT_MS = 520;            /* 퇴장 연출 길이 (CSS introOut 과 맞춤) */
+    const root = document.documentElement;
+    const skip = $('[data-intro-skip]');
+    let done = false;
+    let autoTimer = null;
+
+    /* 인트로가 떠 있는 동안 뒤쪽 내용은 키보드·보조기기에서 건너뜁니다. */
+    const behind = ['.site-header', '.dot-nav', 'main', '.site-footer']
+      .map(sel => $(sel)).filter(Boolean);
+    behind.forEach(el => {
+      try { el.inert = true; el.setAttribute('data-intro-inert', ''); } catch (_) {}
+    });
+
+    function release() {
+      behind.forEach(el => {
+        el.inert = false;
+        el.removeAttribute('data-intro-inert');
+      });
+    }
+
+    function close() {
+      if (done) return;
+      done = true;
+      clearTimeout(autoTimer);
+      clearTimeout(cfg.watchdog);
+      try { sessionStorage.setItem(cfg.key, '1'); } catch (_) {}
+
+      box.classList.add('is-out');
+      document.removeEventListener('keydown', onKey);
+
+      setTimeout(() => {
+        delete root.dataset.intro;
+        release();
+        /* 본문 첫 제목으로 포커스를 넘겨 키보드 사용자가 이어서 읽게 합니다. */
+        const title = $('#intro-title');
+        if (title) {
+          title.setAttribute('tabindex', '-1');
+          title.focus({ preventScroll: true });
+        }
+      }, OUT_MS);
+    }
+
+    function onKey(e) {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') close();
+    }
+
+    box.addEventListener('click', close);
+    if (skip) skip.addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    autoTimer = setTimeout(close, AUTO_MS);
+
+    /* 건너뛰기 버튼에 포커스를 두어, 탭 이동이 인트로 안에서 시작되게 합니다. */
+    if (skip) skip.focus({ preventScroll: true });
+  })();
+
   /* ---------- 초기 렌더 ---------- */
   renderChampion();
   renderQuestionLabels();

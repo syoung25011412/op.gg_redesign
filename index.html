@@ -7,12 +7,66 @@
 <meta name="description" content="계정 없이 둘러보는 OP.GG 체험형 소개 페이지. 취향에서 챔피언을 찾고, 전적의 의미를 읽고, 궁금한 점을 질문으로 해결해 보세요. 학생 제작 비공식 리뉴얼 제안.">
 <meta name="author" content="시각디자인학과 2601110267 조서영">
 <meta name="theme-color" content="#356CE5">
-<script>document.documentElement.classList.add("js");</script>
+<script>
+/* 인트로는 JS 가 살아 있을 때만 켭니다. 스크립트가 없거나 깨지면
+   아래 감시 타이머가 상태를 풀어, 화면이 가려진 채로 남지 않습니다. */
+(() => {
+  const d = document.documentElement;
+  d.classList.add("js");
+  const KEY = "opgg:intro:v3";
+  let seen = false;
+  try { seen = sessionStorage.getItem(KEY) === "1"; } catch (_) {}
+  const deepLink = location.hash && location.hash !== "#intro";
+  const slowMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.__intro = { key: KEY, show: !seen && !deepLink && !slowMotion };
+  if (window.__intro.show) {
+    d.dataset.intro = "active";
+    window.__intro.watchdog = setTimeout(() => {
+      delete d.dataset.intro;
+      document.querySelectorAll("[data-intro-inert]").forEach(el => {
+        el.inert = false; el.removeAttribute("data-intro-inert");
+      });
+    }, 6000);
+  }
+})();
+</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+
+<!-- ===== 인트로 : OP.GG 로고 + 문구 띠 =====
+     문구를 바꾸려면 아래 .intro-track 안의 글자를 고치세요.
+     한 줄에 같은 내용이 두 번 들어가야 띠가 끊기지 않고 이어집니다. -->
+<div class="intro" id="intro-overlay" role="dialog" aria-modal="true" aria-label="OP.GG 인트로">
+  <div class="intro-bg" aria-hidden="true"></div>
+
+  <div class="intro-bands" aria-hidden="true">
+    <div class="intro-band intro-band-a">
+      <div class="intro-track">
+        <span>EVERY GAME COUNTS <i>•</i> KNOW YOUR GAME <i>•</i> MATCH HISTORY, DECODED <i>•</i> WIN RATE · KDA · CS <i>•</i> PLAY SMARTER <i>•</i> </span>
+        <span aria-hidden="true">EVERY GAME COUNTS <i>•</i> KNOW YOUR GAME <i>•</i> MATCH HISTORY, DECODED <i>•</i> WIN RATE · KDA · CS <i>•</i> PLAY SMARTER <i>•</i> </span>
+      </div>
+    </div>
+    <div class="intro-band intro-band-b">
+      <div class="intro-track">
+        <span>BUILT FOR SUMMONERS <i>•</i> FROM FIRST GAME TO LAST <i>•</i> STATS THAT MAKE SENSE <i>•</i> SEARCH. READ. IMPROVE. <i>•</i> </span>
+        <span aria-hidden="true">BUILT FOR SUMMONERS <i>•</i> FROM FIRST GAME TO LAST <i>•</i> STATS THAT MAKE SENSE <i>•</i> SEARCH. READ. IMPROVE. <i>•</i> </span>
+      </div>
+    </div>
+    <div class="intro-band intro-band-c">
+      <div class="intro-track">
+        <span>DATA FOR EVERY PLAYER <i>•</i> YOUR PLAY, IN NUMBERS <i>•</i> GG EVERY GAME <i>•</i> ONE SCROLL, ONE PLAY <i>•</i> </span>
+        <span aria-hidden="true">DATA FOR EVERY PLAYER <i>•</i> YOUR PLAY, IN NUMBERS <i>•</i> GG EVERY GAME <i>•</i> ONE SCROLL, ONE PLAY <i>•</i> </span>
+      </div>
+    </div>
+  </div>
+
+  <p class="intro-logo"><span>OP.GG</span></p>
+
+  <button type="button" class="intro-skip" data-intro-skip>건너뛰기</button>
+</div>
 
 <a class="skip-link" href="#intro">본문으로 바로가기</a>
 

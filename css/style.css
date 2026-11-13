@@ -530,3 +530,135 @@ h3{font-size:var(--fs-h3);line-height:1.45;letter-spacing:-.025em;font-weight:70
 @media (max-width:1320px){ .dot-nav{display:none} }
 @media (prefers-reduced-motion:reduce){ .dot-nav a[aria-current="true"] i{transform:none} }
 @media print{ .dot-nav{display:none} }
+
+/* ============================================================
+   21. 인트로 — OP.GG 로고 + 문구 띠
+   탭당 한 번만 재생합니다. JS 가 꺼져 있으면 아예 나타나지 않고,
+   동작 줄이기 설정에서도 건너뜁니다. (js/main.js 참고)
+   ============================================================ */
+.intro{display:none}
+html[data-intro="active"]{overflow:hidden}
+html[data-intro="active"] .intro{
+  display:block;position:fixed;inset:0;z-index:1000;
+  isolation:isolate;overflow:hidden;color:#fff;
+}
+.intro-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(900px 620px at 50% 44%, #123A7E 0%, #0A214C 48%, #050F28 100%);
+}
+.intro-bg::after{      /* 옅은 격자 */
+  content:"";position:absolute;inset:0;opacity:.16;
+  background-image:
+    linear-gradient(#78B5FF33 1px, transparent 1px),
+    linear-gradient(90deg, #78B5FF33 1px, transparent 1px);
+  background-size:84px 84px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 46%, #000 0%, transparent 72%);
+          mask-image:radial-gradient(ellipse at 50% 46%, #000 0%, transparent 72%);
+}
+
+/* ----- 문구 띠 ----- */
+.intro-bands{position:absolute;inset:0}
+.intro-band{
+  position:absolute;left:-14%;width:128%;
+  display:flex;align-items:center;overflow:hidden;
+  opacity:0;transform:translateY(26px);
+  animation:bandIn 620ms var(--ease, cubic-bezier(.22,.61,.36,1)) forwards;
+}
+.intro-track{
+  display:flex;flex:none;white-space:nowrap;
+  font-size:clamp(16px,2.1vw,30px);font-weight:800;letter-spacing:.01em;
+  animation:bandRoll linear infinite;
+}
+.intro-track span{padding-right:0}
+.intro-track i{font-style:normal;opacity:.45;padding:0 .35em}
+
+/* 뒤쪽 진한 띠 */
+.intro-band-a{
+  top:21%;height:clamp(44px,6.4vw,78px);transform-origin:50% 50%;
+  background:linear-gradient(90deg,#16327A,#1E4AA8);
+  box-shadow:0 14px 40px rgba(3,12,32,.45);
+  animation-delay:60ms;
+  --tilt:-4deg;
+}
+.intro-band-a .intro-track{animation-duration:26s;color:#CFE0FF}
+
+/* 로고 뒤를 지나는 주 색 띠 */
+.intro-band-b{
+  top:43.5%;height:clamp(50px,7.4vw,92px);
+  background:linear-gradient(90deg,#2A57BC,#356CE5 55%,#4C84F0);
+  box-shadow:0 18px 50px rgba(3,12,32,.5);
+  animation-delay:0ms;
+  --tilt:3deg;
+}
+.intro-band-b .intro-track{animation-duration:19s;animation-direction:reverse;color:#fff}
+
+/* 앞쪽 밝은 띠 — 로고 아래를 가로지릅니다 */
+.intro-band-c{
+  top:66%;height:clamp(40px,5.6vw,70px);z-index:3;
+  background:linear-gradient(90deg,#3F9CFF,#7CC0FF);
+  box-shadow:0 16px 44px rgba(3,12,32,.42);
+  animation-delay:120ms;
+  --tilt:-2.5deg;
+}
+.intro-band-c .intro-track{animation-duration:15s;color:#07244F}
+
+@keyframes bandIn{
+  from{opacity:0;transform:translateY(26px) rotate(var(--tilt,0deg)) scaleX(1.04)}
+  to  {opacity:1;transform:translateY(0)    rotate(var(--tilt,0deg)) scaleX(1)}
+}
+@keyframes bandRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ----- 로고 ----- */
+.intro-logo{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  z-index:2;margin:0;line-height:1;white-space:nowrap;
+  font-size:clamp(78px,15vw,208px);font-weight:900;letter-spacing:-.065em;
+  opacity:0;animation:logoIn 700ms cubic-bezier(.22,.61,.36,1) 180ms forwards;
+}
+.intro-logo span{
+  display:block;color:#F4F9FF;
+  text-shadow:
+    0 2px 0 #9FC4FF, 0 4px 0 #6E9DEA, 0 6px 0 #4C7AD0,
+    0 8px 0 #3A62B4, 0 10px 22px rgba(4,16,42,.62),
+    0 0 52px rgba(110,170,255,.42);
+}
+@keyframes logoIn{
+  from{opacity:0;transform:translate(-50%,-44%) scale(.9)}
+  to  {opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+
+/* ----- 건너뛰기 ----- */
+.intro-skip{
+  position:absolute;z-index:4;
+  top:max(22px,env(safe-area-inset-top));right:24px;
+  min-height:44px;padding:0 20px;border-radius:999px;
+  border:1px solid #9FC4FF66;background:#0B224B;color:#EAF2FF;
+  font-size:14px;font-weight:700;
+  transition:background var(--t-tap) var(--ease),border-color var(--t-tap) var(--ease);
+}
+.intro-skip:hover{background:#1A3B72;border-color:#9FC4FF}
+
+/* ----- 퇴장 ----- */
+.intro.is-out{
+  animation:introOut 520ms cubic-bezier(.4,0,.2,1) forwards;
+  pointer-events:none;
+}
+@keyframes introOut{
+  from{opacity:1;transform:scale(1)}
+  to  {opacity:0;transform:scale(1.07)}
+}
+
+@media (max-width:560px){
+  .intro-band-a{top:18%}
+  .intro-band-b{top:42%}
+  .intro-band-c{top:68%}
+  .intro-skip{right:16px;padding:0 16px}
+}
+
+/* 동작 줄이기에서는 인트로 자체를 띄우지 않지만, 혹시 떠도 멈춰 있게 합니다. */
+@media (prefers-reduced-motion:reduce){
+  .intro-band,.intro-track,.intro-logo,.intro.is-out{animation:none}
+  .intro-band,.intro-logo{opacity:1;transform:none}
+  .intro-band{transform:rotate(var(--tilt,0deg))}
+}
