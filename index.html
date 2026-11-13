@@ -311,14 +311,18 @@
         <h3 class="sub-title">테마를 골라 분위기를 살펴보세요.</h3>
 
         <div class="theme-list" role="radiogroup" aria-label="시즌 테마 선택">
-          <button type="button" class="theme-item" role="radio" aria-checked="true" data-theme="winter">Winter Blue</button>
-          <button type="button" class="theme-item" role="radio" aria-checked="false" data-theme="party">Party Night</button>
+          <button type="button" class="theme-item" role="radio" aria-checked="true" data-theme="winter">
+            Winter Blue <small>캠페인 페이지 있음</small>
+          </button>
+          <button type="button" class="theme-item" role="radio" aria-checked="false" data-theme="party">
+            Party Night <small>테마 미리보기만</small>
+          </button>
         </div>
 
-        <p class="feedback" data-theme-feedback role="status">선택한 테마: Winter Blue · 차분한 겨울 분위기의 캠페인 예시</p>
+        <p class="feedback is-on" data-theme-feedback role="status">선택한 테마: Winter Blue · 차분한 겨울 분위기의 캠페인 예시</p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="#recap" data-nav>체험 정리하기</a>
+          <a class="btn btn-primary" href="./christmas.html" data-nav data-theme-cta>Winter Blue 캠페인 열어보기 <span aria-hidden="true">↗</span></a>
           <a class="btn btn-text" href="#recap" data-nav>건너뛰고 체험 정리</a>
         </div>
 

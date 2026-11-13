@@ -129,8 +129,14 @@
 
   /* ---------- 데이터 : 시즌 테마 ---------- */
   const THEMES = {
-    winter: { name: 'Winter Blue', desc: '차분한 겨울 분위기의 캠페인 예시', image: true },
-    party:  { name: 'Party Night', desc: '밝고 들뜬 분위기의 캠페인 예시', image: false }
+    winter: {
+      name: 'Winter Blue', desc: '차분한 겨울 분위기의 캠페인 예시', image: true,
+      cta: { href: './christmas.html', label: 'Winter Blue 캠페인 열어보기 ↗' }
+    },
+    party:  {
+      name: 'Party Night', desc: '밝고 들뜬 분위기의 캠페인 예시', image: false,
+      cta: { href: '#recap', label: '체험 정리하기' }
+    }
   };
 
   /* ---------- 상태 ---------- */
@@ -360,6 +366,13 @@
       const fb = $('[data-theme-feedback]');
       fb.textContent = `선택한 테마: ${t.name} · ${t.desc}`;
       fb.classList.add('is-on');
+
+      /* Winter Blue 는 별도 캠페인 페이지로, Party Night 는 체험 정리로 이어집니다. */
+      const cta = $('[data-theme-cta]');
+      if (cta) {
+        cta.setAttribute('href', t.cta.href);
+        cta.textContent = t.cta.label;
+      }
     });
   });
 
