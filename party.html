@@ -3,161 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HALL OF FAME — 유리 구슬 속 명장면</title>
-<meta name="description" content="OP.GG FIRST PLAY 의 명예의전당. 유리 구슬을 눌러 그 경기의 챔피언, 월즈 스킨, 아이템 트리를 확인해 보세요. 학생 제작 비공식 페이지.">
+<title>HALL OF FAME — 유리 너머의 명장면</title>
+<meta name="description" content="OP.GG FIRST PLAY 의 명예의전당. 유리 패널에 담긴 경기 장면을 누르면 짧은 하이라이트와 그 경기의 정보가 나옵니다. 학생 제작 비공식 페이지.">
 <meta name="author" content="시각디자인학과 2601110267 조서영">
-<meta name="theme-color" content="#150C35">
+<meta name="theme-color" content="#120A2E">
 <script>document.documentElement.classList.add("js");</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://ddragon.leagueoflegends.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="./css/event.css">
 <link rel="stylesheet" href="./css/theme-party.css">
 </head>
-<body>
+<body class="hall">
 
-<a class="skip-link" href="#open">본문으로 바로가기</a>
+<a class="skip-link" href="#gallery">본문으로 바로가기</a>
 
-<div class="particles" aria-hidden="true" data-particles="22" data-colors="#C9A6FF,#FFD166,#6D5CF5,#F3EDFF"></div>
+<!-- 배경 빛 -->
+<div class="hall-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="particles" aria-hidden="true" data-particles="18" data-colors="#C9A6FF,#FFD166,#6D5CF5,#F3EDFF"></div>
 
-<!-- ===== 좌측 다크 내비게이션 ===== -->
-<aside class="rail">
-  <a class="rail-brand" href="./index.html"><span class="brand-mark">OP.GG</span></a>
-  <p class="rail-title">HALL OF FAME<br><small>유리 구슬 속 명장면</small></p>
+<!-- ===== 상단 바 ===== -->
+<header class="hall-bar">
+  <a class="hall-brand" href="./index.html">
+    <span class="brand-mark">OP.GG</span>
+    <span class="hall-tag">HALL OF FAME</span>
+  </a>
 
-  <nav aria-label="명예의전당 메뉴">
-    <a href="#open" data-nav aria-current="true"><b>01</b><span>명예의전당<small>무엇을 모아뒀나요</small></span></a>
-    <a href="#hall" data-nav><b>02</b><span>구슬 고르기<small>눌러서 그 경기 보기</small></span></a>
-    <a href="#how" data-nav><b>03</b><span>자료와 표기<small>출처·확인 상태</small></span></a>
-    <a href="#back" data-nav><b>04</b><span>체험으로 돌아가기<small>본 페이지로</small></span></a>
-  </nav>
+  <div class="hall-filters" role="group" aria-label="연도로 거르기" data-filters></div>
 
-  <div class="rail-bottom">
-    <p class="rail-note">학생 과제용 비공식 페이지입니다.<br>Riot Games 와 무관합니다.</p>
-    <a href="./christmas.html">Winter Blue 보기 →</a>
-    <a href="./index.html#season">← 시즌 테마로 돌아가기</a>
-    <a href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
-  </div>
-  <div class="rail-progress" aria-hidden="true"><i data-progress></i></div>
-</aside>
-
-<header class="topbar">
-  <a href="./index.html"><span class="brand-mark">OP.GG</span></a>
-  <span class="topbar-tag">HALL OF FAME</span>
-  <a class="btn btn-line btn-sm" href="./index.html#season">체험으로 ←</a>
+  <a class="btn btn-line btn-sm hall-back" href="./index.html#season">체험으로 돌아가기</a>
 </header>
 
-<main>
+<main id="gallery" class="hall-main">
+  <h1 class="hall-title">
+    유리 너머의 <em>명장면</em>
+    <span>장면을 누르면 짧은 하이라이트와 그 경기의 정보가 나와요.</span>
+  </h1>
 
-<!-- ===== 01 소개 ===== -->
-<section id="open" class="section hero" aria-labelledby="open-title">
-  <div class="inner hero-inner">
-    <div class="hero-copy" data-reveal>
-      <p class="badge">HALL OF FAME · 비공식 아카이브</p>
-      <h1 id="open-title">그날의 한 판을,<br><em>유리 구슬</em> 안에.</h1>
-      <p class="lead">기억에 남은 경기들을 구슬 하나씩에 담았어요.<br>구슬을 누르면 그 경기의 챔피언과 기록을 볼 수 있어요.</p>
+  <!-- 패널과 상세 내용은 js/party.js 위쪽 MOMENTS 배열에서 관리합니다. -->
+  <ul class="pane-grid" data-panes></ul>
 
-      <div class="route">
-        <span><b>01</b>구슬 고르기</span>
-        <span><b>02</b>챔피언·스킨</span>
-        <span><b>03</b>아이템 트리</span>
-      </div>
+  <p class="hall-note" data-pane-count></p>
 
-      <div class="actions">
-        <a class="btn btn-primary btn-lg" href="#hall" data-nav>구슬 보러 가기</a>
-        <a class="btn btn-text" href="#how" data-nav>자료는 어디서 왔나요?</a>
-      </div>
-      <p class="note">학생 과제용 비공식 페이지입니다. Riot Games 및 소속 팀·선수와 관련이 없습니다.</p>
-    </div>
-
-    <div class="hero-stage" data-reveal data-reveal-delay="1" aria-hidden="true">
-      <span class="beams"></span>
-      <span class="ball"></span>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 02 구슬 그리드 =====
-     구슬과 상세 내용은 js/party.js 위쪽 MOMENTS 배열에서 모두 관리합니다. -->
-<section id="hall" class="section section-deep" aria-labelledby="hall-title">
-  <div class="inner">
-    <div class="section-head" data-reveal>
-      <p class="badge">GLASS ARCHIVE</p>
-      <h2 id="hall-title">구슬을 눌러보세요.</h2>
-      <p class="lead">구슬 하나가 경기 하나예요. 누르면 그 경기의 챔피언, 월즈 스킨,<br>아이템 트리를 한 화면에서 볼 수 있어요.</p>
-    </div>
-
-    <div class="orb-filters" role="group" aria-label="연도로 거르기" data-filters data-reveal></div>
-
-    <ul class="orb-grid" data-orbs data-reveal data-reveal-delay="1"></ul>
-
-    <p class="note" data-orb-count></p>
-  </div>
-</section>
-
-<!-- ===== 03 자료와 표기 ===== -->
-<section id="how" class="section" aria-labelledby="how-title">
-  <div class="inner">
-    <div class="section-head" data-reveal>
-      <p class="badge">SOURCES</p>
-      <h2 id="how-title">자료는 어디서 왔나요?</h2>
-    </div>
-
-    <ul class="topic-cards" data-reveal data-reveal-delay="1">
-      <li class="topic-card">
-        <div class="topic-tile" data-tone="a" aria-hidden="true"><span>✓</span></div>
-        <p class="chip">확인함</p>
-        <strong>여러 매체가 일치</strong>
-        <p>경기 결과와 MVP처럼 여러 곳에서 같게 적고 있는 내용이에요.<br>구슬 상세에 출처 링크를 함께 둡니다.</p>
-      </li>
-      <li class="topic-card">
-        <div class="topic-tile" data-tone="b" aria-hidden="true"><span>?</span></div>
-        <p class="chip">확인 중</p>
-        <strong>아직 대조하는 중</strong>
-        <p>챔피언·스킨·아이템처럼 경기별로 확인이 더 필요한 내용이에요.<br>확실해지기 전까지 <b>확인 중</b>으로 표시합니다.</p>
-      </li>
-      <li class="topic-card">
-        <div class="topic-tile" data-tone="c" aria-hidden="true"><span>◎</span></div>
-        <p class="chip">이미지</p>
-        <strong>Riot 공개 자료</strong>
-        <p>챔피언 이미지는 Riot 의 공개 데이터(Data Dragon)를 그대로 불러옵니다.<br>따로 저장하거나 고쳐 쓰지 않습니다.</p>
-      </li>
-    </ul>
-
-    <p class="note">이 페이지는 학생 과제로 만든 비공식 자료입니다. League of Legends 와 관련 이미지의 권리는 Riot Games 에 있으며, 이 페이지는 Riot Games 의 승인이나 후원을 받지 않았습니다.</p>
-  </div>
-</section>
-
-<!-- ===== 04 돌아가기 ===== -->
-<section id="back" class="section section-deep" aria-labelledby="back-title">
-  <div class="inner">
-    <div class="back-box" data-reveal>
-      <h2 id="back-title">체험을 이어서<br>마무리해 볼까요?</h2>
-      <p class="lead">명예의전당은 여기까지예요. 본 페이지로 돌아가 체험을 정리하고,<br>내 전적까지 확인해 보세요.</p>
-
-      <div class="actions">
-        <a class="btn btn-primary btn-lg" href="./index.html#recap">체험 정리 보러 가기</a>
-        <a class="btn btn-line" href="./christmas.html">Winter Blue 보러 가기</a>
-        <a class="btn btn-text" href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
+  <footer class="hall-foot">
+    <p>OP.GG · 학생 제작 체험형 소개 페이지 / 비공식 · 시각디자인학과 2601110267 조서영<br>
+      League of Legends 와 관련 이미지의 권리는 Riot Games 에 있으며, 이 페이지는 Riot Games 의 승인이나 후원을 받지 않았습니다.</p>
+    <nav>
+      <a href="./index.html#recap">체험 정리 보러 가기 →</a>
+      <a href="./christmas.html">Winter Blue 보기 →</a>
+      <a href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
+    </nav>
+  </footer>
 </main>
 
-<!-- ===== 구슬 상세 ===== -->
+<!-- ===== 상세 ===== -->
 <dialog class="moment" data-moment aria-labelledby="moment-title">
   <button type="button" class="moment-close" data-moment-close aria-label="닫기">✕</button>
 
   <div class="moment-media">
     <img data-moment-art src="" alt="" loading="lazy" decoding="async">
+    <button type="button" class="moment-play" data-moment-play hidden>
+      <span aria-hidden="true">▶</span> 하이라이트 재생
+    </button>
     <div class="moment-video" data-moment-video hidden></div>
   </div>
 
   <div class="moment-body">
     <p class="moment-meta"><span data-moment-year></span><b data-moment-event></b></p>
-    <h3 id="moment-title" data-moment-title></h3>
+    <h2 id="moment-title" data-moment-title></h2>
     <p class="moment-score" data-moment-score></p>
     <p class="moment-desc" data-moment-desc></p>
 
@@ -175,14 +89,6 @@
     <p class="moment-sources" data-moment-sources></p>
   </div>
 </dialog>
-
-<footer class="site-footer">
-  <div class="inner footer-inner">
-    <p>OP.GG · 학생 제작 체험형 소개 페이지 / 비공식<br>
-      <small>시각디자인학과 2601110267 조서영 · 웹페이지 제작 응용실습 과제</small></p>
-    <a class="btn btn-text" href="#open" data-nav>맨 위로 ↑</a>
-  </div>
-</footer>
 
 <script src="./js/event.js" defer></script>
 <script src="./js/party.js" defer></script>

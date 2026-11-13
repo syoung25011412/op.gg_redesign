@@ -1,27 +1,30 @@
 @charset "utf-8";
 /* ============================================================
-   PARTY NIGHT — 밤의 보라 테마
-   css/event.css 다음에 불러옵니다. 색과 파티 전용 요소만 담습니다.
+   HALL OF FAME — 유리 패널 갤러리 (party.html 전용)
+   css/event.css 다음에 불러옵니다.
+
+   이 페이지는 섹션으로 나뉜 원스크롤이 아니라,
+   유리 패널이 화면 가득 펼쳐진 갤러리입니다.
+   패널 하나가 경기 하나이고, 안에는 하이라이트에서 캡처한 장면이 들어갑니다.
    ============================================================ */
 
 :root{
-  /* 주요 행동 색은 본 페이지(index.html)와 동일하게 유지 */
-  --blue:#356CE5;
-  --blue-bright:#4F85F2;
-  --blue-shadow:rgba(53,108,229,.34);
+  --blue:#6D5CF5;
+  --blue-bright:#8A7BFF;
+  --blue-shadow:rgba(109,92,245,.38);
   --accent:#C9A6FF;
-  --point:#FFD166;            /* 금색 포인트 · 컨페티 */
+  --point:#FFD166;
 
-  --bg:#150C35;
-  --bg-2:#1E1248;
-  --bg-deep:#0E0724;
+  --bg:#120A2E;
+  --bg-2:#1C1248;
+  --bg-deep:#0C0622;
   --rail-bg:#0B0520;
-  --veil-rgb:14 7 36;
+  --veil-rgb:12 6 34;
 
   --line:#3A2470;
   --line-soft:#2A1A58;
   --rail-hover:#2A1A58;
-  --on-blue-sub:#E4EBFF;
+  --on-blue-sub:#E7E0FF;
 
   --ink:#F3EDFF;
   --ink-2:#C9B8EC;
@@ -31,233 +34,263 @@
   --stat-bg:#241552;
   --bar-bg:#2E1C60;
 
-  --tile-1:linear-gradient(140deg,#3B1E78,#8B5CF6);
-  --tile-2:linear-gradient(140deg,#4C1D95,#C084FC);
-  --tile-3:linear-gradient(140deg,#2A1458,#6D5CF5);
+  --rail:0px;              /* 이 페이지에는 좌측 rail 이 없습니다 */
+  --bar-h:68px;
 }
 
-/* ---------- 컨페티 ---------- */
-.particles i{
-  border-radius:1px;
-  background:var(--confetti,#C9A6FF);
-}
+/* ---------- 바탕 ---------- */
+.hall{background:var(--bg);min-height:100vh}
+.hall-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.hall-bg i{position:absolute;display:block;border-radius:50%;filter:blur(90px);opacity:.55}
+.hall-bg i:nth-child(1){width:46vw;height:46vw;left:-8vw;top:-6vw;background:#4B2BA8}
+.hall-bg i:nth-child(2){width:40vw;height:40vw;right:-6vw;top:24vh;background:#2B4BC8}
+.hall-bg i:nth-child(3){width:34vw;height:34vw;left:34vw;bottom:-12vw;background:#7B3FA8}
+.particles i{border-radius:1px;background:var(--confetti,#C9A6FF)}
 
-/* ---------- 01 히어로 : 사진 대신 CSS 연출 ---------- */
-.hero{
-  background:
-    radial-gradient(880px 520px at 76% 30%, rgba(139,92,246,.55), transparent 62%),
-    radial-gradient(700px 480px at 94% 74%, rgba(255,209,102,.16), transparent 60%),
-    radial-gradient(820px 600px at 14% 16%, rgba(53,108,229,.34), transparent 62%),
-    var(--bg);
+/* ---------- 상단 바 ---------- */
+.hall-bar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  min-height:var(--bar-h);padding:12px clamp(20px,4vw,48px);
+  background:rgb(var(--veil-rgb) / .72);
+  backdrop-filter:blur(14px) saturate(1.3);
+  border-bottom:1px solid rgba(201,166,255,.14);
 }
-.hero::after{
-  background:linear-gradient(0deg, var(--bg) 0%, rgb(var(--veil-rgb) / .45) 10%, transparent 26%);
-}
-.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hall-brand{display:flex;align-items:baseline;gap:12px}
+.hall-brand .brand-mark{font-size:24px;color:#fff}
+.hall-tag{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--accent)}
+.hall-back{margin-left:auto}
 
-.hero-stage{
-  position:relative;display:grid;place-items:center;padding:40px 0;
-  perspective:900px;isolation:isolate;
-}
-
-/* 빛나는 구체 */
-.ball{
-  width:min(290px,76%);aspect-ratio:1;border-radius:50%;position:relative;
-  background:radial-gradient(circle at 34% 27%,
-    #FDF8FF 0%, #E6D0FF 13%, #AE80F9 41%, #6236C9 70%, #2A1360 100%);
-  box-shadow:0 0 110px rgba(201,166,255,.5), inset -26px -30px 72px rgba(0,0,0,.52);
-}
-.ball::before{            /* 반사 하이라이트 */
-  content:"";position:absolute;left:23%;top:16%;width:24%;height:17%;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(255,255,255,.8),transparent 70%);filter:blur(4px);
-}
-
-/* 구체를 도는 두 개의 빛 고리 */
-.beams{
-  position:absolute;inset:-14%;z-index:-1;pointer-events:none;
-  transform-style:preserve-3d;
-  animation:beamspin 34s linear infinite;
-}
-.beams::before,.beams::after{
-  content:"";position:absolute;inset:0;border-radius:50%;
-  border:1.5px solid rgba(201,166,255,.3);
-}
-.beams::before{transform:rotateX(74deg)}
-.beams::after{transform:rotateX(74deg) rotateY(58deg);border-color:rgba(255,209,102,.26)}
-@keyframes beamspin{to{transform:rotate(360deg)}}
-
-/* ---------- 02 유리 구슬 ---------- */
-.orb-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
-.orb-filter{
-  min-height:44px;padding:0 20px;border-radius:999px;
-  border:1.5px solid var(--line);background:rgba(255,255,255,.03);
-  color:var(--ink-2);font-size:14px;font-weight:700;
+.hall-filters{display:flex;flex-wrap:wrap;gap:8px}
+.hall-filters button{
+  min-height:40px;padding:0 16px;border-radius:999px;
+  border:1px solid rgba(201,166,255,.26);background:rgba(255,255,255,.04);
+  color:var(--ink-2);font-size:13px;font-weight:700;
   transition:all var(--t-tap) var(--ease);
 }
-.orb-filter:hover{border-color:var(--accent);color:#fff}
-.orb-filter[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.hall-filters button:hover{border-color:var(--accent);color:#fff}
+.hall-filters button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 
-.orb-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));
-  gap:40px 28px;align-items:start;
+/* ---------- 본문 ---------- */
+.hall-main{
+  position:relative;z-index:1;
+  padding:clamp(36px,6vw,72px) clamp(20px,4vw,48px) 60px;
 }
-.orb-cell{display:grid;justify-items:center;gap:16px}
-/* 짝수 번째 구슬을 조금 내려 물에 떠 있는 듯한 배치를 만듭니다 */
-.orb-cell:nth-child(even){margin-top:36px}
+.hall-title{
+  font-size:clamp(28px,4.6vw,56px);font-weight:800;line-height:1.26;letter-spacing:-.035em;
+  margin:0 0 clamp(28px,4vw,46px);
+}
+.hall-title em{font-style:normal;color:var(--accent)}
+.hall-title span{
+  display:block;margin-top:14px;
+  font-size:clamp(14px,1.5vw,17px);font-weight:500;color:var(--ink-2);letter-spacing:-.01em;
+}
+.hall-note{font-size:13px;color:var(--ink-3);margin-top:34px}
 
-.orb{
-  position:relative;display:block;width:100%;aspect-ratio:1;padding:0;
-  border-radius:50%;overflow:hidden;isolation:isolate;
-  background:radial-gradient(circle at 34% 28%, #3A2270, #1A0E44 62%, #0C0628 100%);
+/* ---------- 유리 패널 ---------- */
+.pane-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(248px,1fr));
+  grid-auto-rows:92px;
+  grid-auto-flow:dense;
+  gap:clamp(14px,1.8vw,24px);
+  margin:0;padding:0;list-style:none;
+}
+.pane-cell{grid-row:span 3;perspective:1000px}
+.pane-cell[data-size="wide"]{grid-column:span 2;grid-row:span 3}
+.pane-cell[data-size="tall"]{grid-row:span 4}
+
+.pane{
+  position:relative;display:block;width:100%;height:100%;padding:0;
+  border-radius:clamp(18px,1.8vw,26px);overflow:hidden;isolation:isolate;
+  background:linear-gradient(150deg,#2A1A5E,#160C3C 62%,#0D0628);
   box-shadow:
-    0 24px 54px rgba(6,2,22,.6),
-    0 0 0 1px rgba(201,166,255,.22),
-    inset 0 0 46px rgba(10,2,34,.55);
-  transition:transform var(--t-open) var(--ease), box-shadow var(--t-open) var(--ease);
-  animation:orbFloat 7s ease-in-out infinite;
-  animation-delay:calc(var(--i,0) * -0.9s);
+    0 26px 54px rgba(6,2,22,.55),
+    0 0 0 1px rgba(201,166,255,.18);
+  transition:transform 420ms var(--ease), box-shadow 420ms var(--ease);
+  will-change:transform;
 }
-.orb-grid.no-float .orb{animation:none}
-.orb:hover,.orb:focus-visible{
-  /* 누르려는 순간에는 떠다니기를 멈춰, 움직이는 과녁을 쫓지 않게 합니다 */
-  animation-play-state:paused;
-  transform:translateY(-8px) scale(1.04);
+.pane:hover,.pane:focus-visible{
+  transform:translateY(-8px) scale(1.015);
   box-shadow:
-    0 32px 70px rgba(6,2,22,.68),
-    0 0 0 1px rgba(201,166,255,.5),
-    0 0 60px rgba(150,110,255,.4),
-    inset 0 0 46px rgba(10,2,34,.5);
-}
-@keyframes orbFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
+    0 38px 74px rgba(6,2,22,.62),
+    0 0 0 1px rgba(201,166,255,.45),
+    0 0 72px rgba(140,100,255,.3);
 }
 
-/* 구슬 안의 그림 */
-.orb-media{position:absolute;inset:0;display:block;border-radius:50%;overflow:hidden}
-.orb-media img{
-  width:100%;height:100%;object-fit:cover;object-position:62% 22%;
-  transform:scale(1.18);
-  filter:saturate(1.1) contrast(1.04) brightness(.92);
-  transition:transform 420ms var(--ease);
+/* 캡처 장면 */
+.pane-shot{position:absolute;inset:0;display:block;overflow:hidden}
+.pane-shot img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transform:scale(1.06);
+  filter:saturate(1.06) contrast(1.03) brightness(.86);
+  transition:transform 620ms var(--ease), filter 420ms var(--ease);
 }
-.orb:hover .orb-media img{transform:scale(1.26)}
+.pane:hover .pane-shot img{transform:scale(1.13);filter:saturate(1.12) contrast(1.05) brightness(.96)}
 
-/* 유리 표면 — 하이라이트·반사·테두리 */
-.orb-glass{
-  position:absolute;inset:0;border-radius:50%;pointer-events:none;
+/* 유리 표면 — 하이라이트와 반사 */
+.pane-glass{
+  position:absolute;inset:0;pointer-events:none;border-radius:inherit;
   background:
-    radial-gradient(circle at 30% 20%, rgba(255,255,255,.75) 0%, rgba(255,255,255,.22) 11%, transparent 30%),
-    radial-gradient(circle at 74% 82%, rgba(201,166,255,.4) 0%, transparent 38%),
-    radial-gradient(circle at 50% 118%, rgba(255,209,102,.25) 0%, transparent 42%),
-    linear-gradient(158deg, rgba(255,255,255,.2) 0%, transparent 42%);
+    linear-gradient(142deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,.08) 18%, transparent 38%),
+    radial-gradient(130% 80% at 14% 4%, rgba(255,255,255,.24), transparent 48%),
+    radial-gradient(90% 70% at 88% 96%, rgba(201,166,255,.26), transparent 54%),
+    linear-gradient(0deg, rgba(10,4,32,.78) 0%, rgba(10,4,32,.25) 32%, transparent 60%);
   box-shadow:
-    inset 0 2px 10px rgba(255,255,255,.4),
-    inset -16px -22px 46px rgba(8,2,28,.62),
-    inset 10px 14px 34px rgba(190,150,255,.16);
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 0 0 1px rgba(255,255,255,.1),
+    inset 0 -40px 70px rgba(10,2,34,.5);
 }
-.orb-year{
-  position:absolute;left:50%;bottom:13%;transform:translateX(-50%);
-  font-size:12px;font-weight:800;letter-spacing:.1em;
-  color:#F3EDFF;background:rgba(10,4,32,.55);
-  padding:5px 12px;border-radius:999px;backdrop-filter:blur(4px);
+/* 유리 두께 — 가장자리만 흐리게 해 굴절되는 느낌을 냅니다.
+   mask 합성을 지원하는 브라우저에서만 적용합니다. */
+@supports ((-webkit-mask-composite: xor) or (mask-composite: exclude)){
+  .pane-rim{
+    position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+    padding:clamp(7px,.9vw,11px);
+    backdrop-filter:blur(7px) saturate(1.2);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+            mask-composite:exclude;
+  }
 }
-.orb-flag{
-  position:absolute;left:50%;top:11%;transform:translateX(-50%);
+
+/* 패널 위 글자 */
+.pane-info{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:clamp(14px,1.6vw,20px);text-align:left;pointer-events:none;
+}
+.pane-event{
+  display:block;font-size:11px;font-weight:800;letter-spacing:.08em;
+  color:var(--accent);margin-bottom:6px;
+}
+.pane-name{
+  display:block;font-size:clamp(14px,1.4vw,18px);font-weight:800;color:#fff;
+  line-height:1.4;letter-spacing:-.02em;
+  text-shadow:0 2px 12px rgba(6,2,22,.7);
+}
+.pane-year{
+  position:absolute;top:clamp(12px,1.4vw,16px);left:clamp(12px,1.4vw,16px);z-index:2;
+  font-size:11px;font-weight:800;letter-spacing:.08em;color:#F3EDFF;
+  background:rgba(10,4,32,.5);padding:5px 11px;border-radius:999px;
+  backdrop-filter:blur(4px);
+}
+.pane-flag{
+  position:absolute;top:clamp(12px,1.4vw,16px);right:clamp(12px,1.4vw,16px);z-index:2;
   font-size:11px;font-weight:800;white-space:nowrap;
-  color:#241552;background:var(--point);
-  padding:4px 10px;border-radius:999px;
+  color:#241552;background:var(--point);padding:4px 10px;border-radius:999px;
 }
-.orb-cap{text-align:center;line-height:1.5}
-.orb-cap b{display:block;font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.02em}
-.orb-cap span{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-top:4px}
+.pane-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);z-index:2;
+  width:58px;height:58px;border-radius:50%;
+  display:grid;place-items:center;font-size:17px;color:#fff;
+  background:rgba(12,6,34,.45);border:1px solid rgba(255,255,255,.3);
+  backdrop-filter:blur(6px);
+  opacity:0;transition:opacity var(--t-open) var(--ease), transform var(--t-open) var(--ease);
+}
+.pane:hover .pane-play,.pane:focus-visible .pane-play{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
 .sr-only{
   position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip-path:inset(50%);white-space:nowrap;border:0;
 }
 
-/* ---------- 구슬 상세 ---------- */
+/* ---------- 바닥 ---------- */
+.hall-foot{
+  margin-top:clamp(50px,7vw,88px);padding-top:28px;
+  border-top:1px solid var(--line-soft);
+  display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.hall-foot p{font-size:12px;color:var(--ink-3);line-height:1.9;max-width:62ch}
+.hall-foot nav{display:grid;gap:10px;font-size:13px;font-weight:700}
+.hall-foot nav a{color:var(--ink-2)}
+.hall-foot nav a:hover{color:#fff}
+
+/* ---------- 상세 ---------- */
 .moment{
-  width:min(880px, calc(100% - 32px));max-height:88vh;padding:0;overflow:auto;
-  border:1px solid var(--line);border-radius:var(--r-xl);
+  width:min(900px, calc(100% - 32px));max-height:90vh;padding:0;overflow:auto;
+  border:1px solid var(--line);border-radius:clamp(18px,2vw,26px);
   background:var(--bg-2);color:var(--ink);
 }
-.moment::backdrop{background:rgba(6,2,22,.74);backdrop-filter:blur(6px)}
-.moment[open]{animation:momentIn 240ms var(--ease) both}
-@keyframes momentIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.moment::backdrop{background:rgba(6,2,22,.78);backdrop-filter:blur(8px)}
+.moment[open]{animation:momentIn 260ms var(--ease) both}
+@keyframes momentIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
 
 .moment-close{
-  position:absolute;top:14px;right:14px;z-index:3;
+  position:absolute;top:14px;right:14px;z-index:4;
   width:44px;height:44px;border-radius:50%;
-  background:rgba(10,4,32,.6);color:#fff;font-size:15px;
+  background:rgba(10,4,32,.62);color:#fff;font-size:15px;
+  border:1px solid rgba(255,255,255,.16);
   transition:background var(--t-tap) var(--ease);
 }
 .moment-close:hover{background:var(--blue)}
 
-.moment-media{position:relative;aspect-ratio:16/7;overflow:hidden;background:#0C0628}
+.moment-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0C0628}
 .moment-media.is-empty{
-  aspect-ratio:auto;height:92px;
+  aspect-ratio:auto;height:96px;
   background:linear-gradient(140deg,#3B1E78,#6D5CF5 58%,#1E1248);
 }
-.moment-media img{width:100%;height:100%;object-fit:cover;object-position:58% 24%}
-.moment-media::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(0deg, var(--bg-2) 0%, rgba(30,18,72,.3) 46%, transparent 78%);
+.moment-media img{width:100%;height:100%;object-fit:cover}
+.moment-play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+  min-height:52px;padding:0 24px;border-radius:999px;
+  background:rgba(12,6,34,.6);border:1px solid rgba(255,255,255,.3);
+  color:#fff;font-size:15px;font-weight:700;
+  display:inline-flex;align-items:center;gap:9px;
+  backdrop-filter:blur(8px);
+  transition:background var(--t-tap) var(--ease);
 }
-.moment-video{position:absolute;inset:0;z-index:2;background:#000}
+.moment-play:hover{background:var(--blue)}
+.moment-video{position:absolute;inset:0;z-index:3;background:#000}
 .moment-video iframe{width:100%;height:100%;border:0;display:block}
 
-.moment-body{padding:28px 34px 34px;position:relative;z-index:2;margin-top:-36px}
+.moment-body{padding:28px clamp(22px,3vw,34px) 34px}
 .moment-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12px;color:var(--ink-3)}
 .moment-meta b{
   font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--accent);
   background:var(--chip-bg);padding:5px 12px;border-radius:999px;
 }
-.moment h3{font-size:clamp(24px,3.2vw,34px);line-height:1.3;letter-spacing:-.03em;margin-top:12px}
+.moment h2{font-size:clamp(23px,3.2vw,34px);line-height:1.3;letter-spacing:-.03em;margin:12px 0 0}
 .moment-score{font-size:17px;font-weight:800;color:var(--point);margin-top:10px}
 .moment-desc{font-size:15px;color:var(--ink-2);line-height:1.85;margin-top:14px;white-space:pre-line}
 
 .moment-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 0}
-.moment-facts>div{background:var(--stat-bg);border-radius:var(--r-md);padding:18px}
+.moment-facts>div{background:var(--stat-bg);border-radius:14px;padding:18px}
 .moment-facts dt{font-size:12px;color:var(--ink-3)}
 .moment-facts dd{margin:8px 0 0;font-size:16px;font-weight:700;line-height:1.5}
 
 .moment-build{margin-top:22px}
 .moment-label{font-size:12px;color:var(--ink-3);margin-bottom:10px}
 .moment-items{display:flex;flex-wrap:wrap;gap:8px}
-.moment-items img{
-  width:48px;height:48px;border-radius:9px;
-  border:1px solid var(--line);background:var(--stat-bg);
-}
+.moment-items img{width:48px;height:48px;border-radius:9px;border:1px solid var(--line);background:var(--stat-bg)}
 .moment-pending{
   font-size:14px;color:var(--ink-3);
   background:var(--stat-bg);border:1px dashed var(--line);
-  border-radius:var(--r-md);padding:16px 18px;
+  border-radius:14px;padding:16px 18px;
 }
 .moment-sources{font-size:12px;color:var(--ink-3);margin-top:22px;line-height:1.9}
 .moment-sources a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- 반응형 ---------- */
-@media (max-width:1024px){
-  .hero-inner{grid-template-columns:1fr;gap:36px}
+@media (max-width:900px){
+  .hall-bar{gap:12px}
+  .hall-back{order:2;margin-left:auto}
+  .hall-filters{order:3;width:100%;overflow-x:auto;padding-bottom:2px}
+  .hall-filters button{flex:none}
   .moment-facts{grid-template-columns:1fr}
-  .moment-body{padding:24px 24px 30px}
-  .hero-stage{padding-top:30px;order:2}
-  .ball{width:200px}
 }
 @media (max-width:560px){
-  .ball{width:170px}
-  .orb-grid{grid-template-columns:repeat(2,1fr);gap:28px 16px}
-  .orb-cell:nth-child(even){margin-top:24px}
-  .orb-cap span{font-size:13px}
-  .moment{width:calc(100% - 20px);max-height:92vh}
-  .moment-media{aspect-ratio:4/3}
+  .pane-grid{grid-template-columns:1fr;grid-auto-rows:84px}
+  .pane-cell,.pane-cell[data-size="wide"],.pane-cell[data-size="tall"]{grid-column:span 1;grid-row:span 3}
+  .pane-play{opacity:1;transform:translate(-50%,-50%) scale(1);width:50px;height:50px}
+  .hall-foot{flex-direction:column}
+  .moment{width:calc(100% - 16px);max-height:94vh}
   .moment-items img{width:42px;height:42px}
+  .particles{display:none}
 }
 
-/* 동작 줄이기: 떠다니는 연출 정지 */
+/* ---------- 동작 줄이기 ---------- */
 @media (prefers-reduced-motion:reduce){
-  .beams,.orb{animation:none}
+  .pane,.pane-shot img{transition:none}
   .moment[open]{animation:none}
 }
