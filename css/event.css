@@ -1,43 +1,32 @@
 @charset "utf-8";
 /* ============================================================
-   WINTER BLUE — 겨울 시즌 캠페인 페이지
-   본 페이지(index.html)의 밝은 테마와 짝을 이루는 다크 버전입니다.
-   예전 크리스마스 시안의 다크 네이비 배경 + 좌측 rail 구조를 가져오고,
-   색·간격·모션 규칙은 05_Design_System 을 그대로 따릅니다.
+   EVENT — 시즌 캠페인 페이지 공통 스타일
+   christmas.html(Winter Blue) 과 party.html(Party Night) 이 함께 씁니다.
+
+   색은 전부 변수로만 쓰고, 실제 값은 테마 파일에서 정합니다.
+     · css/theme-winter.css  — 겨울 네이비
+     · css/theme-party.css   — 밤의 보라
+   구조·간격·모션을 바꾸려면 이 파일을, 색만 바꾸려면 테마 파일을 고치세요.
    ============================================================ */
 
 :root{
-  /* 브랜드 색은 본 페이지와 동일하게 유지 */
-  --blue:#356CE5;
-  --blue-bright:#4F85F2;
-  --accent:#8FC3FF;
-  --red:#D94D70;          /* 선물 리본 · 크리스마스 포인트 */
-
-  /* 다크 네이비 계열 */
-  --bg:#071A3A;
-  --bg-2:#0A2048;
-  --bg-deep:#051229;
-  --rail-bg:#040F26;
-  --line:#1C3463;
-  --line-soft:#152A52;
-
-  --ink:#EDF4FF;
-  --ink-2:#B4C9EC;
-  --ink-3:#7E96C2;
-
+  /* 레이아웃 */
   --content:1080px;
   --side:80px;
   --rail:272px;
 
+  /* 타이포 (05_Design_System) */
   --fs-h1:56px;
   --fs-h2:40px;
   --fs-lead:18px;
 
+  /* 모양 */
   --r-sm:10px;
   --r-md:14px;
   --r-lg:20px;
   --r-xl:26px;
 
+  /* 모션 */
   --t-tap:170ms;
   --t-open:230ms;
   --t-reveal:520ms;
@@ -69,15 +58,12 @@ ul{list-style:none;padding:0}
 }
 .skip-link:focus{transform:translate(-50%,0)}
 
-/* ---------- 눈 내리는 배경 ---------- */
-.snow{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.snow i{
-  position:absolute;top:-8%;border-radius:50%;background:#fff;
-  opacity:.5;animation:fall linear infinite;
-}
-@keyframes fall{
-  0%{transform:translate3d(0,-10vh,0)}
-  100%{transform:translate3d(var(--drift,14px),110vh,0)}
+/* ---------- 떠다니는 입자 레이어 (모양은 테마에서) ---------- */
+.particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particles i{position:absolute;top:-8%;animation:drop linear infinite}
+@keyframes drop{
+  0%{transform:translate3d(0,-10vh,0) rotate(0deg)}
+  100%{transform:translate3d(var(--drift,14px),110vh,0) rotate(var(--spin,0deg))}
 }
 
 /* ---------- 좌측 rail ---------- */
@@ -103,10 +89,10 @@ ul{list-style:none;padding:0}
 .rail nav b{font-size:12px;font-weight:800;color:var(--ink-3);padding-top:3px;min-width:22px}
 .rail nav span{display:block;font-size:15px;font-weight:600;line-height:1.5}
 .rail nav small{display:block;font-size:11px;font-weight:500;color:var(--ink-3);margin-top:3px}
-.rail nav a:hover{background:#10264F;color:#fff}
+.rail nav a:hover{background:var(--rail-hover);color:#fff}
 .rail nav a[aria-current="true"]{background:var(--blue);color:#fff}
 .rail nav a[aria-current="true"] b,
-.rail nav a[aria-current="true"] small{color:#DCE9FF}
+.rail nav a[aria-current="true"] small{color:var(--on-blue-sub)}
 
 .rail-bottom{margin-top:auto;padding:28px 0 22px;display:grid;gap:12px;font-size:13px}
 .rail-note{font-size:11px;color:var(--ink-3);line-height:1.7}
@@ -120,7 +106,7 @@ ul{list-style:none;padding:0}
   display:none;position:sticky;top:0;z-index:40;
   align-items:center;justify-content:space-between;gap:12px;
   height:62px;padding:0 20px;
-  background:rgba(4,15,38,.94);backdrop-filter:blur(8px);
+  background:rgb(var(--veil-rgb) / .94);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line-soft);
 }
 .topbar .brand-mark{font-size:22px;color:#fff}
@@ -142,11 +128,11 @@ h1 em{font-style:normal;color:var(--accent)}
 .note{font-size:12px;color:var(--ink-3);margin-top:20px;line-height:1.7}
 .badge{
   display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;
-  color:var(--accent);background:#102A58;padding:7px 14px;border-radius:999px;margin-bottom:20px;
+  color:var(--accent);background:var(--chip-bg);padding:7px 14px;border-radius:999px;margin-bottom:20px;
 }
 .chip{
   display:inline-block;font-size:12px;font-weight:700;
-  padding:5px 12px;border-radius:999px;background:#132C58;color:var(--accent);
+  padding:5px 12px;border-radius:999px;background:var(--chip-bg);color:var(--accent);
 }
 
 /* ---------- 버튼 ---------- */
@@ -160,7 +146,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .btn:active{transform:translateY(1px)}
 .btn-lg{min-height:56px;padding:0 32px;font-size:16px}
 .btn-sm{min-height:44px;padding:0 16px;font-size:13px}
-.btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 26px rgba(53,108,229,.3)}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 26px var(--blue-shadow)}
 .btn-primary:hover{background:var(--blue-bright)}
 .btn-line{border:1.5px solid var(--line);color:var(--ink);background:rgba(255,255,255,.03)}
 .btn-line:hover{border-color:var(--accent);color:#fff}
@@ -177,99 +163,50 @@ h1 em{font-style:normal;color:var(--accent)}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
   background:
-    linear-gradient(0deg, var(--bg) 0%, rgba(7,26,58,.5) 9%, transparent 22%),
+    linear-gradient(0deg, var(--bg) 0%, rgb(var(--veil-rgb) / .5) 9%, transparent 22%),
     linear-gradient(90deg,
-      rgba(5,16,38,.95) 0%, rgba(5,16,38,.88) 32%,
-      rgba(5,16,38,.42) 58%, rgba(5,16,38,.05) 80%, transparent 100%);
+      rgb(var(--veil-rgb) / .95) 0%, rgb(var(--veil-rgb) / .88) 32%,
+      rgb(var(--veil-rgb) / .42) 58%, rgb(var(--veil-rgb) / .05) 80%, transparent 100%);
 }
 .hero-inner{width:min(var(--content), 100% - var(--side) * 2)}
 .hero-copy{max-width:560px}
 .route{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;font-size:13px;color:var(--ink-2)}
 .route b{color:var(--accent);margin-right:7px}
 
-/* ---------- 02 겨울 챔피언 ---------- */
-.snow-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.snow-card{
+/* ---------- 02 주제 카드 3장 ---------- */
+.topic-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.topic-card{
   background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-lg);
   padding:26px;
   transition:border-color var(--t-tap) var(--ease),transform var(--t-tap) var(--ease);
 }
-.snow-card:hover{border-color:var(--blue);transform:translateY(-4px)}
-.snow-tile{
+.topic-card:hover{border-color:var(--blue);transform:translateY(-4px)}
+.topic-tile{
   aspect-ratio:16/9;border-radius:var(--r-md);display:grid;place-items:center;
   margin-bottom:20px;font-size:46px;color:rgba(255,255,255,.9);
-  background:linear-gradient(140deg,#15326B,#356CE5);
+  background:var(--tile-1);
 }
-.snow-tile[data-tone="snow"]{background:linear-gradient(140deg,#1B3C78,#6FA6FF)}
-.snow-tile[data-tone="frost"]{background:linear-gradient(140deg,#102A58,#4F85F2)}
-.snow-card strong{display:block;font-size:21px;font-weight:800;margin:12px 0 8px}
-.snow-card p{font-size:14px;color:var(--ink-2);line-height:1.75}
+.topic-tile[data-tone="b"]{background:var(--tile-2)}
+.topic-tile[data-tone="c"]{background:var(--tile-3)}
+.topic-card strong{display:block;font-size:21px;font-weight:800;margin:12px 0 8px}
+.topic-card p{font-size:14px;color:var(--ink-2);line-height:1.75}
 
-/* ---------- 03 선물 상자 ---------- */
-.gift-stage{display:grid;gap:26px;justify-items:center}
-.gift{display:grid;gap:16px;justify-items:center;padding:14px}
-.gift-box{
-  position:relative;display:block;width:216px;height:186px;
-  transition:transform var(--t-open) var(--ease);
-}
-.gift:hover .gift-box{transform:translateY(-6px)}
-
-/* 상자 몸통 + 세로 리본 */
-.gift-body{
-  position:absolute;left:8px;bottom:0;width:200px;height:116px;
-  border-radius:4px 4px 14px 14px;
-  background:linear-gradient(160deg,#2F63D8,#17357A);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.14);
-}
-.gift-body::before{
-  content:"";position:absolute;left:88px;top:0;width:24px;height:100%;
-  background:linear-gradient(180deg,#E2607F,var(--red));
-}
-
-/* 뚜껑 + 그 위의 리본 매듭 — 함께 움직입니다 */
-.gift-lid{
-  position:absolute;left:0;top:62px;width:216px;height:40px;border-radius:7px;
-  background:linear-gradient(160deg,#5A8DF5,#2F63D8);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.2);
-  transform-origin:50% 100%;
-  transition:transform 420ms var(--ease);
-}
-.gift-lid::before{      /* 뚜껑 위 세로 리본 */
-  content:"";position:absolute;left:96px;top:0;width:24px;height:100%;
-  background:linear-gradient(180deg,#E2607F,var(--red));
-}
-.gift-lid::after{       /* 리본 매듭 */
-  content:"";position:absolute;left:62px;top:-26px;width:92px;height:30px;
-  border:9px solid var(--red);border-radius:50% 50% 40% 40%;
-  background:transparent;
-}
-
-/* 열렸을 때 안에서 새어 나오는 빛 */
-.gift-glow{
-  position:absolute;left:28px;top:30px;width:160px;height:62px;border-radius:50%;
-  background:radial-gradient(ellipse,#FFE6A7 0%,rgba(255,214,130,.55) 45%,transparent 72%);
-  opacity:0;transition:opacity var(--t-open) var(--ease);
-}
-
-.gift.is-open .gift-lid{transform:translateY(-38px) rotate(-8deg)}
-.gift.is-open .gift-glow{opacity:1}
-.gift.is-open .gift-box{filter:drop-shadow(0 6px 30px rgba(143,195,255,.4))}
-
-.gift-label{font-size:13px;font-weight:700;color:var(--ink-2)}
-.gift.is-open .gift-label{color:var(--accent)}
-
-.gift-result{
+/* ---------- 03 체험 결과 카드 (선물 상자 / 룰렛 공통) ---------- */
+.draw-stage{display:grid;gap:26px;justify-items:center}
+.draw-result{
   width:100%;max-width:480px;min-height:158px;
   background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-lg);
   padding:24px;display:grid;align-content:center;
 }
-.gift-empty{font-size:14px;color:var(--ink-3);text-align:center}
-.gift-result strong{display:block;font-size:20px;font-weight:800;margin:14px 0 8px}
-.gift-result [data-gift-body]{font-size:14px;color:var(--ink-2);line-height:1.8}
-.gift-result [data-gift-card]{animation:pop var(--t-open) var(--ease) both}
+.draw-empty{font-size:14px;color:var(--ink-3);text-align:center}
+.draw-result strong{display:block;font-size:20px;font-weight:800;margin:14px 0 8px}
+.draw-result [data-draw-body]{font-size:14px;color:var(--ink-2);line-height:1.8;white-space:pre-line}
+.draw-result [data-draw-card]{animation:pop var(--t-open) var(--ease) both}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.draw-label{font-size:13px;font-weight:700;color:var(--ink-2)}
+.is-open .draw-label{color:var(--accent)}
 
-/* ---------- 04 겨울 기록 ---------- */
+/* ---------- 04 기록 ---------- */
 .recap-card{
   background:var(--bg-2);border:1px solid var(--line-soft);
   border-radius:var(--r-xl);padding:34px;
@@ -278,11 +215,11 @@ h1 em{font-style:normal;color:var(--accent)}
 .recap-head strong{display:block;font-size:19px;font-weight:800}
 .recap-head span{display:block;font-size:13px;color:var(--ink-3);margin-top:4px}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:30px 0 26px}
-.stat-grid li{background:#0D2350;border-radius:var(--r-md);padding:24px}
+.stat-grid li{background:var(--stat-bg);border-radius:var(--r-md);padding:24px}
 .stat-grid b{display:block;font-size:40px;font-weight:800;color:var(--accent);letter-spacing:-.04em;line-height:1.1}
 .stat-grid span{display:block;font-size:13px;color:var(--ink-3);margin-top:10px}
 .stat-bars{display:flex;gap:3px}
-.stat-bars i{flex:1;height:26px;border-radius:3px;background:#143059}
+.stat-bars i{flex:1;height:26px;border-radius:3px;background:var(--bar-bg)}
 .stat-bars i.on{background:var(--blue)}
 .stat-note{font-size:13px;color:var(--ink-3);margin-top:18px}
 
@@ -314,10 +251,13 @@ h1 em{font-style:normal;color:var(--accent)}
   .topbar{display:flex}
   main,.site-footer{margin-left:0}
   .split{grid-template-columns:1fr;gap:40px}
-  .snow-cards{grid-template-columns:1fr}
+  .topic-cards{grid-template-columns:1fr}
   .hero{min-height:560px}
   .hero-art{object-position:68% center}
-  .hero::after{background:linear-gradient(180deg,rgba(5,16,38,.72) 0%,rgba(5,16,38,.9) 55%,rgba(5,16,38,.97) 100%)}
+  .hero::after{
+    background:linear-gradient(180deg,
+      rgb(var(--veil-rgb) / .72) 0%, rgb(var(--veil-rgb) / .9) 55%, rgb(var(--veil-rgb) / .97) 100%);
+  }
 }
 @media (max-width:560px){
   :root{--side:20px;--fs-h1:32px;--fs-h2:27px;--fs-lead:16px}
@@ -326,14 +266,13 @@ h1 em{font-style:normal;color:var(--accent)}
   .hero{min-height:520px}
   .btn{width:100%}
   .btn-sm,.btn-text{width:auto}
-  .recap-card,.gift-result{padding:22px}
+  .recap-card,.draw-result{padding:22px}
   .stat-grid{grid-template-columns:1fr;gap:12px}
   .stat-grid li{padding:18px}
   .stat-grid b{font-size:32px}
   .stat-bars i{height:18px}
-  .gift-box{transform:scale(.85)}
   .footer-inner{flex-direction:column;align-items:flex-start}
-  .snow{display:none}   /* 모바일은 고정 연출 생략 (05_Design_System 04/MOTION) */
+  .particles{display:none}   /* 모바일은 고정 연출 생략 (05_Design_System 04/MOTION) */
 }
 
 /* ---------- 동작 줄이기 설정 존중 ---------- */
@@ -344,11 +283,11 @@ h1 em{font-style:normal;color:var(--accent)}
     transition-duration:.01ms!important;
   }
   .js [data-reveal]{opacity:1!important;transform:none!important}
-  .snow{display:none}
+  .particles{display:none}
 }
 
 @media print{
-  .rail,.topbar,.snow,.skip-link{display:none}
+  .rail,.topbar,.particles,.skip-link{display:none}
   main,.site-footer{margin-left:0}
   body{background:#fff;color:#000}
   .section{padding:30px 0;break-inside:avoid}

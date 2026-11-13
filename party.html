@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARTY NIGHT — 오늘 밤, 한 판 더 어때요?</title>
+<meta name="description" content="OP.GG FIRST PLAY 의 밤 시즌 캠페인 페이지. 밤과 어울리는 챔피언을 만나고, 파티 룰렛을 돌리고, 오늘 밤 기록을 돌아보세요. 학생 제작 비공식 가상 캠페인.">
+<meta name="author" content="시각디자인학과 2601110267 조서영">
+<meta name="theme-color" content="#150C35">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="./css/event.css">
+<link rel="stylesheet" href="./css/theme-party.css">
+</head>
+<body>
+
+<a class="skip-link" href="#open">본문으로 바로가기</a>
+
+<!-- 흩날리는 컨페티 (장식) -->
+<div class="particles" aria-hidden="true" data-particles="30" data-colors="#C9A6FF,#FFD166,#6D5CF5,#F3EDFF"></div>
+
+<!-- ===== 좌측 다크 내비게이션 ===== -->
+<aside class="rail">
+  <a class="rail-brand" href="./index.html"><span class="brand-mark">OP.GG</span></a>
+  <p class="rail-title">PARTY NIGHT<br><small>밤 시즌 캠페인</small></p>
+
+  <nav aria-label="캠페인 메뉴">
+    <a href="#open" data-nav aria-current="true"><b>01</b><span>밤이 시작됐어요<small>캠페인 소개</small></span></a>
+    <a href="#champions" data-nav><b>02</b><span>밤의 챔피언<small>분위기를 바꾸는 챔피언</small></span></a>
+    <a href="#roulette" data-nav><b>03</b><span>파티 룰렛<small>오늘 밤의 한 가지</small></span></a>
+    <a href="#record" data-nav><b>04</b><span>오늘 밤 기록<small>예시 전적 돌아보기</small></span></a>
+    <a href="#back" data-nav><b>05</b><span>체험으로 돌아가기<small>본 페이지로</small></span></a>
+  </nav>
+
+  <div class="rail-bottom">
+    <p class="rail-note">학생 과제용 가상 캠페인입니다.<br>실제 진행 이벤트가 아니에요.</p>
+    <a href="./christmas.html">Winter Blue 보기 →</a>
+    <a href="./index.html#season">← 시즌 테마로 돌아가기</a>
+    <a href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
+  </div>
+  <div class="rail-progress" aria-hidden="true"><i data-progress></i></div>
+</aside>
+
+<!-- ===== 모바일 상단 바 ===== -->
+<header class="topbar">
+  <a href="./index.html"><span class="brand-mark">OP.GG</span></a>
+  <span class="topbar-tag">PARTY NIGHT</span>
+  <a class="btn btn-line btn-sm" href="./index.html#season">체험으로 ←</a>
+</header>
+
+<main>
+
+<!-- ===== 01 캠페인 소개 =====
+     내용 미정 — 제목·소개 문구는 아래 .hero-copy 안에서 바꾸면 됩니다.
+     사진 대신 CSS 로 그린 미러볼을 쓰고 있어, 이미지가 준비되면
+     .hero-stage 블록을 <img class="hero-art"> 로 교체하세요. -->
+<section id="open" class="section hero" aria-labelledby="open-title">
+  <div class="inner hero-inner">
+    <div class="hero-copy" data-reveal>
+      <p class="badge">PARTY NIGHT · 가상 시즌 캠페인</p>
+      <h1 id="open-title">오늘 밤,<br><em>한 판</em> 더 어때요?</h1>
+      <p class="lead">불 끄고 시작하는 밤의 캠페인이에요.<br>가볍게 한 판, 부담 없이 둘러보세요.</p>
+
+      <div class="route">
+        <span><b>01</b>밤의 챔피언</span>
+        <span><b>02</b>파티 룰렛</span>
+        <span><b>03</b>오늘 밤 기록</span>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="#roulette" data-nav>룰렛 돌려보기</a>
+        <a class="btn btn-text" href="#champions" data-nav>챔피언부터 보기</a>
+      </div>
+      <p class="note">학생 과제용 가상 캠페인입니다. 실제 진행 이벤트나 공식 제휴를 뜻하지 않습니다.</p>
+    </div>
+
+    <div class="hero-stage" data-reveal data-reveal-delay="1" aria-hidden="true">
+      <span class="beams"></span>
+      <span class="ball"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 밤의 챔피언 =====
+     내용 미정 — 카드 3장의 이름·설명을 바꿔 쓰면 됩니다.
+     data-tone 은 a / b / c 세 가지 배색입니다. -->
+<section id="champions" class="section" aria-labelledby="champions-title">
+  <div class="inner">
+    <div class="section-head" data-reveal>
+      <p class="badge">NIGHT CHAMPIONS</p>
+      <h2 id="champions-title">밤과 어울리는 챔피언.</h2>
+      <p class="lead">분위기를 한 번에 바꾸는 챔피언 세 명을 쉬운 설명으로 소개할게요.</p>
+    </div>
+
+    <ul class="topic-cards" data-reveal data-reveal-delay="1">
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="a" aria-hidden="true"><span>✹</span></div>
+        <p class="chip">크게 터뜨려요</p>
+        <strong>징크스</strong>
+        <p>멀리서 크게 터뜨리는 챔피언이에요.<br>한 번 풀리면 분위기를 통째로 바꿉니다.</p>
+      </li>
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="b" aria-hidden="true"><span>✦</span></div>
+        <p class="chip">장난처럼 들어와요</p>
+        <strong>조이</strong>
+        <p>순간 이동으로 예상 못 한 곳에서 나타나요.<br>한 번의 적중이 판을 뒤집습니다.</p>
+      </li>
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="c" aria-hidden="true"><span>♠</span></div>
+        <p class="chip">카드 한 장으로</p>
+        <strong>트위스티드 페이트</strong>
+        <p>멀리서도 카드 한 장으로 합류해요.<br>지도 전체를 보는 재미가 있어요.</p>
+      </li>
+    </ul>
+
+    <p class="note">소개를 위한 예시이며, 실제 추천 결과나 현재 패치 기준 공략이 아닙니다.</p>
+  </div>
+</section>
+
+<!-- ===== 03 파티 룰렛 =====
+     나오는 문구는 js/party.js 위쪽 SPINS 배열에서 한 번에 바꿉니다.
+     칸 수를 바꾸려면 SEGMENTS 와 theme-party.css 의 .wheel conic-gradient 를 함께 수정하세요. -->
+<section id="roulette" class="section section-deep" aria-labelledby="roulette-title">
+  <div class="inner">
+    <div class="split">
+
+      <div data-reveal>
+        <p class="badge">PARTY ROULETTE</p>
+        <h2 id="roulette-title">파티 룰렛을<br>돌려보세요.</h2>
+        <p class="lead">룰렛을 돌리면 오늘 밤의 한 가지가 나와요.<br>마음에 안 들면 다시 돌려도 괜찮아요.</p>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary btn-lg" data-draw-open>룰렛 돌리기</button>
+        </div>
+        <p class="note">준비된 문구 중 하나를 보여주는 데모입니다. 실제 추첨이나 경품이 아닙니다.</p>
+      </div>
+
+      <div class="draw-stage" data-reveal data-reveal-delay="1">
+        <div>
+          <span class="wheel-pointer" aria-hidden="true"></span>
+          <button type="button" class="wheel-area" data-draw aria-describedby="draw-result">
+            <span class="wheel" data-wheel aria-hidden="true"></span>
+            <span class="wheel-hub" aria-hidden="true">SPIN</span>
+          </button>
+        </div>
+        <span class="draw-label">눌러서 돌리기</span>
+
+        <div class="draw-result" id="draw-result" role="status" aria-live="polite">
+          <p class="draw-empty" data-draw-empty>아직 돌리지 않았어요.</p>
+          <div data-draw-card hidden>
+            <p class="chip" data-draw-kind></p>
+            <strong data-draw-title></strong>
+            <p data-draw-body></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 오늘 밤 기록 =====
+     내용 미정 — 숫자 3개와 막대(data-bars / data-bars-on)를 바꿔 쓰면 됩니다. -->
+<section id="record" class="section" aria-labelledby="record-title">
+  <div class="inner">
+    <div class="section-head" data-reveal>
+      <p class="badge">NIGHT RECAP</p>
+      <h2 id="record-title">오늘 밤,<br>내 플레이는 어땠을까요?</h2>
+      <p class="lead">아래는 설명을 위한 예시 기록이에요. 실제 전적은 본 페이지 마지막에서 검색할 수 있어요.</p>
+    </div>
+
+    <div class="recap-card" data-reveal data-reveal-delay="1">
+      <div class="recap-head">
+        <div>
+          <strong>SAMPLE#KR1</strong>
+          <span>밤 시간대 14게임 · 개인/2인 랭크 · 고정 예시</span>
+        </div>
+        <span class="chip">예시 데이터</span>
+      </div>
+
+      <ul class="stat-grid">
+        <li><b>14</b><span>밤에 플레이한 게임</span></li>
+        <li><b>3연승</b><span>가장 길었던 연승</span></li>
+        <li><b>42분</b><span>가장 길었던 한 판</span></li>
+      </ul>
+
+      <div class="stat-bars" aria-hidden="true" data-bars="14" data-bars-on="9"></div>
+      <p class="stat-note">14칸 중 보라 칸이 이긴 경기예요. 게임 수를 함께 보면 승률의 의미가 분명해집니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 돌아가기 ===== -->
+<section id="back" class="section section-deep" aria-labelledby="back-title">
+  <div class="inner">
+    <div class="back-box" data-reveal>
+      <h2 id="back-title">체험을 이어서<br>마무리해 볼까요?</h2>
+      <p class="lead">밤 캠페인은 여기까지예요. 본 페이지로 돌아가 체험을 정리하고,<br>내 전적까지 확인해 보세요.</p>
+
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="./index.html#recap">체험 정리 보러 가기</a>
+        <a class="btn btn-line" href="./christmas.html">Winter Blue 보러 가기</a>
+        <a class="btn btn-text" href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner footer-inner">
+    <p>OP.GG · 학생 제작 체험형 소개 페이지 / 비공식<br>
+      <small>시각디자인학과 2601110267 조서영 · 웹페이지 제작 응용실습 과제</small></p>
+    <a class="btn btn-text" href="#open" data-nav>맨 위로 ↑</a>
+  </div>
+</footer>
+
+<script src="./js/event.js" defer></script>
+<script src="./js/party.js" defer></script>
+</body>
+</html>

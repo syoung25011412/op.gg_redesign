@@ -10,14 +10,15 @@
 <script>document.documentElement.classList.add("js");</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="./css/christmas.css">
+<link rel="stylesheet" href="./css/event.css">
+<link rel="stylesheet" href="./css/theme-winter.css">
 </head>
 <body>
 
 <a class="skip-link" href="#open">본문으로 바로가기</a>
 
 <!-- 눈 내리는 배경 (장식) -->
-<div class="snow" aria-hidden="true" data-snow></div>
+<div class="particles" aria-hidden="true" data-particles="34"></div>
 
 <!-- ===== 좌측 다크 내비게이션 ===== -->
 <aside class="rail">
@@ -34,6 +35,7 @@
 
   <div class="rail-bottom">
     <p class="rail-note">학생 과제용 가상 캠페인입니다.<br>실제 진행 이벤트가 아니에요.</p>
+    <a href="./party.html">Party Night 보기 →</a>
     <a href="./index.html#season">← 시즌 테마로 돌아가기</a>
     <a href="https://op.gg/" target="_blank" rel="noopener">OP.GG 웹사이트 ↗</a>
   </div>
@@ -82,21 +84,21 @@
       <p class="lead">눈과 얼음을 쓰는 챔피언 세 명을 쉬운 설명으로 소개할게요.</p>
     </div>
 
-    <ul class="snow-cards" data-reveal data-reveal-delay="1">
-      <li class="snow-card">
-        <div class="snow-tile" data-tone="ice" aria-hidden="true"><span>❄</span></div>
+    <ul class="topic-cards" data-reveal data-reveal-delay="1">
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="a" aria-hidden="true"><span>❄</span></div>
         <p class="chip">얼음으로 길을 막아요</p>
         <strong>애니비아</strong>
         <p>얼음 벽을 세워 상대가 지나갈 길을 끊어요.<br>한 번의 벽으로 싸움의 모양이 바뀝니다.</p>
       </li>
-      <li class="snow-card">
-        <div class="snow-tile" data-tone="snow" aria-hidden="true"><span>☃</span></div>
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="b" aria-hidden="true"><span>☃</span></div>
         <p class="chip">굴릴수록 커져요</p>
         <strong>누누와 윌럼프</strong>
         <p>눈덩이를 굴려 상대에게 덮쳐요.<br>오래 굴릴수록 더 세게 부딪힙니다.</p>
       </li>
-      <li class="snow-card">
-        <div class="snow-tile" data-tone="frost" aria-hidden="true"><span>✦</span></div>
+      <li class="topic-card">
+        <div class="topic-tile" data-tone="c" aria-hidden="true"><span>✦</span></div>
         <p class="chip">앞에서 버텨요</p>
         <strong>세주아니</strong>
         <p>얼음 멧돼지를 타고 먼저 들어가요.<br>팀이 따라 들어올 길을 열어 줍니다.</p>
@@ -118,28 +120,27 @@
         <p class="lead">상자를 누르면 오늘의 추천 한 가지가 나와요.<br>마음에 안 들면 다시 열어도 괜찮아요.</p>
 
         <div class="actions">
-          <button type="button" class="btn btn-primary btn-lg" data-gift-open>상자 열기</button>
-          <button type="button" class="btn btn-text" data-gift-again hidden>다시 열기</button>
+          <button type="button" class="btn btn-primary btn-lg" data-draw-open>상자 열기</button>
         </div>
         <p class="note">준비된 문구 중 하나를 보여주는 데모입니다. 실제 추첨이나 경품이 아닙니다.</p>
       </div>
 
-      <div class="gift-stage" data-reveal data-reveal-delay="1">
-        <button type="button" class="gift" data-gift aria-describedby="gift-result">
+      <div class="draw-stage" data-reveal data-reveal-delay="1">
+        <button type="button" class="gift" data-gift aria-describedby="draw-result">
           <span class="gift-box" aria-hidden="true">
             <i class="gift-body"></i>
             <i class="gift-glow"></i>
             <i class="gift-lid"></i>
           </span>
-          <span class="gift-label">눌러서 열기</span>
+          <span class="draw-label">눌러서 열기</span>
         </button>
 
-        <div class="gift-result" id="gift-result" role="status" aria-live="polite">
-          <p class="gift-empty" data-gift-empty>아직 열지 않았어요.</p>
-          <div data-gift-card hidden>
-            <p class="chip" data-gift-kind></p>
-            <strong data-gift-title></strong>
-            <p data-gift-body></p>
+        <div class="draw-result" id="draw-result" role="status" aria-live="polite">
+          <p class="draw-empty" data-draw-empty>아직 열지 않았어요.</p>
+          <div data-draw-card hidden>
+            <p class="chip" data-draw-kind></p>
+            <strong data-draw-title></strong>
+            <p data-draw-body></p>
           </div>
         </div>
       </div>
@@ -172,7 +173,7 @@
         <li><b>아리</b><span>가장 많이 한 챔피언</span></li>
       </ul>
 
-      <div class="stat-bars" aria-hidden="true" data-bars></div>
+      <div class="stat-bars" aria-hidden="true" data-bars="32" data-bars-on="19"></div>
       <p class="stat-note">32칸 중 파란 칸이 이긴 경기예요. 게임 수를 함께 보면 승률의 의미가 분명해집니다.</p>
     </div>
   </div>
@@ -204,6 +205,7 @@
   </div>
 </footer>
 
+<script src="./js/event.js" defer></script>
 <script src="./js/christmas.js" defer></script>
 </body>
 </html>

@@ -135,7 +135,7 @@
     },
     party:  {
       name: 'Party Night', desc: '밝고 들뜬 분위기의 캠페인 예시', image: false,
-      cta: { href: '#recap', label: '체험 정리하기' }
+      cta: { href: './party.html', label: 'Party Night 캠페인 열어보기 ↗' }
     }
   };
 

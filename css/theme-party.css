@@ -1,0 +1,136 @@
+@charset "utf-8";
+/* ============================================================
+   PARTY NIGHT — 밤의 보라 테마
+   css/event.css 다음에 불러옵니다. 색과 파티 전용 요소만 담습니다.
+   ============================================================ */
+
+:root{
+  /* 주요 행동 색은 본 페이지(index.html)와 동일하게 유지 */
+  --blue:#356CE5;
+  --blue-bright:#4F85F2;
+  --blue-shadow:rgba(53,108,229,.34);
+  --accent:#C9A6FF;
+  --point:#FFD166;            /* 금색 포인트 · 컨페티 */
+
+  --bg:#150C35;
+  --bg-2:#1E1248;
+  --bg-deep:#0E0724;
+  --rail-bg:#0B0520;
+  --veil-rgb:14 7 36;
+
+  --line:#3A2470;
+  --line-soft:#2A1A58;
+  --rail-hover:#2A1A58;
+  --on-blue-sub:#E4EBFF;
+
+  --ink:#F3EDFF;
+  --ink-2:#C9B8EC;
+  --ink-3:#9484BE;
+
+  --chip-bg:#2B1A5C;
+  --stat-bg:#241552;
+  --bar-bg:#2E1C60;
+
+  --tile-1:linear-gradient(140deg,#3B1E78,#8B5CF6);
+  --tile-2:linear-gradient(140deg,#4C1D95,#C084FC);
+  --tile-3:linear-gradient(140deg,#2A1458,#6D5CF5);
+}
+
+/* ---------- 컨페티 ---------- */
+.particles i{
+  border-radius:1px;
+  background:var(--confetti,#C9A6FF);
+}
+
+/* ---------- 01 히어로 : 사진 대신 CSS 연출 ---------- */
+.hero{
+  background:
+    radial-gradient(880px 520px at 76% 30%, rgba(139,92,246,.55), transparent 62%),
+    radial-gradient(700px 480px at 94% 74%, rgba(255,209,102,.16), transparent 60%),
+    radial-gradient(820px 600px at 14% 16%, rgba(53,108,229,.34), transparent 62%),
+    var(--bg);
+}
+.hero::after{
+  background:linear-gradient(0deg, var(--bg) 0%, rgb(var(--veil-rgb) / .45) 10%, transparent 26%);
+}
+.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+
+.hero-stage{
+  position:relative;display:grid;place-items:center;padding:40px 0;
+  perspective:900px;isolation:isolate;
+}
+
+/* 빛나는 구체 */
+.ball{
+  width:min(290px,76%);aspect-ratio:1;border-radius:50%;position:relative;
+  background:radial-gradient(circle at 34% 27%,
+    #FDF8FF 0%, #E6D0FF 13%, #AE80F9 41%, #6236C9 70%, #2A1360 100%);
+  box-shadow:0 0 110px rgba(201,166,255,.5), inset -26px -30px 72px rgba(0,0,0,.52);
+}
+.ball::before{            /* 반사 하이라이트 */
+  content:"";position:absolute;left:23%;top:16%;width:24%;height:17%;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,255,255,.8),transparent 70%);filter:blur(4px);
+}
+
+/* 구체를 도는 두 개의 빛 고리 */
+.beams{
+  position:absolute;inset:-14%;z-index:-1;pointer-events:none;
+  transform-style:preserve-3d;
+  animation:beamspin 34s linear infinite;
+}
+.beams::before,.beams::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:1.5px solid rgba(201,166,255,.3);
+}
+.beams::before{transform:rotateX(74deg)}
+.beams::after{transform:rotateX(74deg) rotateY(58deg);border-color:rgba(255,209,102,.26)}
+@keyframes beamspin{to{transform:rotate(360deg)}}
+
+/* ---------- 03 파티 룰렛 ---------- */
+.wheel-area{
+  position:relative;width:250px;height:250px;display:block;padding:0;
+  border-radius:50%;
+  transition:transform var(--t-tap) var(--ease);
+}
+.wheel-area:hover{transform:scale(1.03)}
+.wheel-pointer{
+  display:block;width:0;height:0;margin:0 auto -8px;
+  border-left:11px solid transparent;border-right:11px solid transparent;
+  border-top:18px solid var(--point);
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
+  position:relative;z-index:2;
+}
+.wheel{
+  display:block;width:100%;height:100%;border-radius:50%;
+  background:conic-gradient(
+    #8B5CF6   0deg  60deg, #3B1E78  60deg 120deg,
+    #8B5CF6 120deg 180deg, #3B1E78 180deg 240deg,
+    #8B5CF6 240deg 300deg, #3B1E78 300deg 360deg);
+  border:6px solid var(--point);
+  box-shadow:0 0 54px rgba(201,166,255,.35), inset 0 0 44px rgba(0,0,0,.45);
+  transition:transform 1500ms cubic-bezier(.17,.84,.3,1);
+}
+.wheel-hub{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:62px;height:62px;border-radius:50%;
+  background:var(--bg-2);border:3px solid var(--point);
+  display:grid;place-items:center;
+  font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--point);
+}
+.is-open .wheel-hub{color:var(--accent);border-color:var(--accent)}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:36px}
+  .hero-stage{padding-top:30px;order:2}
+  .ball{width:200px}
+}
+@media (max-width:560px){
+  .ball{width:170px}
+  .wheel-area{width:210px;height:210px}
+}
+
+/* 동작 줄이기: 돌아가는 빛줄기 정지 */
+@media (prefers-reduced-motion:reduce){
+  .beams{animation:none}
+}
