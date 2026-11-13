@@ -134,8 +134,8 @@
       cta: { href: './christmas.html', label: 'Winter Blue 캠페인 열어보기 ↗' }
     },
     party:  {
-      name: 'Party Night', desc: '밝고 들뜬 분위기의 캠페인 예시', image: false,
-      cta: { href: './party.html', label: 'Party Night 캠페인 열어보기 ↗' }
+      name: 'Party Night', desc: '유리 구슬 속 명장면을 모은 명예의전당', image: false,
+      cta: { href: './party.html', label: '명예의전당 열어보기 ↗' }
     }
   };
 
